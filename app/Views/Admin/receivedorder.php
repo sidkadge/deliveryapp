@@ -18,7 +18,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>coustomer Name</th>
+                                                <th>Customer Name</th>
                                                 <th>Product</th>
                                                 <th>Quantity</th>
                                                 <th>Price</th>

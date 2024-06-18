@@ -18,7 +18,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>coustomer Name</th>
+                                                <th> Name</th>
                                                 <th>Email</th>
                                                 <th>Contact Number</th>
                                                
