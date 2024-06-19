@@ -60,6 +60,13 @@
             margin: 0;
             padding: 0;
         } */
+
+.form-group label{
+    font-weight: bold;
+}
+.d-block control-label{
+    font-weight: bold;
+}
 </style>
 
 <body>
@@ -104,7 +111,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
+                                            <label for="password" class="control-label" style="font-weight: bold;">Password</label>
                                             <div class="float-right">
                                                 <!-- <a href="auth-forgot-password.html" class="text-small">
                                                     Forgot Password?
@@ -124,11 +131,11 @@
                                             <label class="custom-control-label" for="remember-me">Remember Me</label>
                                         </div>
                                     </div>
-                                    <div class="mt-4 text-muted text-center" >
-                                        Don't have an account? <a href="<?php base_url()?>registraion">register</a>
+                                    <div class="mt-4 text-muted text-center" style="font-weight: bold; color: #000303 !important;">
+                                        Don't have an account? <a href="<?php base_url()?>registraion" style="font-weight: bold;">register</a>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn btn-info btn-lg btn-block" tabindex="4">
+                                        <button type="submit" class="btn btn btn-info btn-lg btn-block" tabindex="4" style="font-weight: bold; font-size: 15px;">
                                             Login
                                         </button>
                                     </div>
