@@ -6,9 +6,9 @@
                 <!-- left column -->
                 <div class="col-md-12">
                     <!-- jquery validation -->
-                    <div class="card card-primary" style="background-image: url('public/assets/img/image-gallery/background14.jpg'); background-size: cover; background-position: center;">>
+                    <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title" style="color:white">Add User <small></small></h3>
+                            <h3 class="card-title"f>Add User <small></small></h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                             <!-- /.card-body -->
-                            <div class="card-footer text-right" style="background-image: url('public/assets/img/image-gallery/background14.jpg'); background-size: cover; background-position: center;">
+                            <div class="card-footer text-right" >
                                 <button type="submit" value="" name="submit" id="submit"
                                     class="btn btn-primary"><?php if(!empty($single_data)){ echo 'Update'; }else{ echo 'Submit';} ?></button>
                             </div>
@@ -105,13 +105,6 @@
 </div>
 
 <?php include __DIR__.'/../Admin/footer.php'; ?>
-
-<style>
-    .form-group label{
-        color: white;
-        font-size: 15px;
-    }
-</style>
 
 <script>
 $(document).ready(function() {
@@ -181,4 +174,4 @@ $(document).ready(function() {
         }
     });
 });
-</script>
+</script>f
