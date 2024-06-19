@@ -1,6 +1,6 @@
 <?php include __DIR__.'/../Admin/header.php'; ?>
 
-<div class="main-content">
+<div class="main-content" >
     <section class="section">
         <div class="section-body">
             <div class="row">

@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer" style="background: linear-gradient(to right, rgb(255, 255, 255), rgb(98 213 225));">
         <div class="footer-left">
           <a href="templateshub.net">Templateshub</a></a>
         </div>
