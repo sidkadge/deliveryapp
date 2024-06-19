@@ -78,3 +78,12 @@
     </section>
 </div>
 <?php include __DIR__.'/../customer/footer.php'; ?>
+
+<script>
+    // jQuery function to hide the success message after 5 seconds
+    $(document).ready(function() {
+        setTimeout(function() {
+            $(".toast").fadeOut(1000);
+        }, 5000); // 5000 milliseconds = 5 seconds
+    });
+    </script>

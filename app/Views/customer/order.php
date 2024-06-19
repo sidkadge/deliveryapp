@@ -69,14 +69,14 @@
                                     <!-- Delivery Time Input -->
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="deliveryTime" style="color:white">Delivery Time</label>
+                                            <label for="deliveryTime">Delivery Time</label>
                                             <input type="time" class="form-control" id="deliveryTime"
                                                 name="deliveryTime">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Payment Details -->
-                                <label for="paymentMode"><b style="color:white">Payment Details</b></label>
+                                <label for="paymentMode"><b>Payment Details</b></label>
                                 <div class="row mt-2">
                                     <div class="col-lg-2">
                                         <div class="form-group">
@@ -151,7 +151,7 @@
 
 <style>
     .row label{
-        color: #163ea3;
+        /* color: #163ea3; */
         font-size: 15px;
     }
     .row input{

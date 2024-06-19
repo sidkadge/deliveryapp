@@ -320,7 +320,7 @@ $page = $uri->getSegment(count($pages));
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
-                                                            } ?>>Access level</a></li>
+                                                            } ?>>Access Level</a></li>
                                 <li><a class="nav-link" href="<?php base_url()?>allotdelivery" <?php if (in_array('allotdelivery', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
@@ -421,7 +421,7 @@ $page = $uri->getSegment(count($pages));
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
-                                                            } ?>>Delivered order</a></li>
+                                                            } ?>>Delivered Order</a></li>
                             </ul>
                         </li>
                     </ul>
