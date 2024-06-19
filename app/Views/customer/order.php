@@ -5,7 +5,7 @@
             <div class="row mt-sm-6">
                 <div class="col-12 col-md-12">
                     <div class="card author-box">
-                        <div class="card-body">
+                    <div class="card-body" style="background: linear-gradient(#fff, skyblue);">
                             <!-- Product Selection -->
                             <form action="orderbook" method="post" id="order_form" enctype="multipart/form-data">
                                 <div class="row">
@@ -69,14 +69,14 @@
                                     <!-- Delivery Time Input -->
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="deliveryTime">Delivery Time</label>
+                                            <label for="deliveryTime" style="color:white">Delivery Time</label>
                                             <input type="time" class="form-control" id="deliveryTime"
                                                 name="deliveryTime">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Payment Details -->
-                                <label for="paymentMode"><b>Payment Details</b></label>
+                                <label for="paymentMode"><b style="color:white">Payment Details</b></label>
                                 <div class="row mt-2">
                                     <div class="col-lg-2">
                                         <div class="form-group">
@@ -148,6 +148,19 @@
     </section>
 </div>
 <?php include __DIR__.'/../customer/footer.php'; ?>
+
+<style>
+    .row label{
+        color: #163ea3;
+        font-size: 15px;
+    }
+    .row input{
+        background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+    .row select{
+        background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+</style>
 
 <script>
 // JavaScript to toggle visibility of UPI fields and QR code

@@ -5,7 +5,7 @@
             <div class="row mt-sm-6">
                 <div class="col-12 col-md-12">
                     <div class="card author-box">
-                        <div class="card-body">
+                        <div class="card-body" style="background: linear-gradient(#fff, skyblue);">
                             <!-- Start and End Date Selection -->
                             <form action="Subscriptionsbook" method="post" id="order_form"
                                 enctype="multipart/form-data">
@@ -215,6 +215,19 @@
     </section>
 </div>
 <?php include __DIR__.'/../customer/footer.php'; ?>
+
+<style>
+    .row label{
+        color: #163ea3;
+        font-size: 15px;
+    }
+    .row input{
+        background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+    .row select{
+        background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

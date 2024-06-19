@@ -82,7 +82,7 @@ $page = $uri->getSegment(count($pages));
     <div id="app">
         <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
-            <nav class="navbar navbar-expand-lg main-navbar sticky">
+            <nav class="navbar navbar-expand-lg main-navbar sticky" style="background: linear-gradient(to right, rgb(255, 255, 255), rgb(98 213 225));">
                 <div class="form-inline mr-auto">
                     <ul class="navbar-nav mr-3">
                         <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
@@ -239,7 +239,8 @@ $page = $uri->getSegment(count($pages));
                     </li>
                 </ul>
             </nav>
-            <div class="main-sidebar sidebar-style-2">
+            <div class="main-sidebar sidebar-style-2" style="background: linear-gradient(to left, rgb(255, 255, 255), rgb(98 213 225));">
+            <!-- <div class="main-sidebar sidebar-style-2" style="background-image: url('public/assets/img/image-gallery/background22.jpg'); background-size: cover; background-position: center;"> -->
 
                 <?php 
       // echo "<pre>";print_r($_SESSION['accesslevel']);exit();

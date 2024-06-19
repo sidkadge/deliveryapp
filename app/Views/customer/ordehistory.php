@@ -8,7 +8,7 @@
                         <div class="card-header">
                             <h4>Order History</h4>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="background: linear-gradient(#fff, skyblue);">
                             <div class="table-responsive">
                                 <?php if (empty($order)): ?>
                                     <p>No orders booked.</p>

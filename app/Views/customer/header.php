@@ -17,37 +17,57 @@
   <link rel="stylesheet" href="public/assets/bundles/datatables/datatables.min.css">
   <link rel="stylesheet" href="public/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 
+
 </head>
 <style>
-        /* Style for required field labels */
-        label.error {
-            color: red;
-        }
-        .flash-success {
+    /* Style for required field labels */
+    label.error {
+        color: red;
+    }
+    .flash-success {
     background-color: #4caf50; /* Green */
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
     margin-bottom: 10px;
-}
+    }
 
-/* Styling for flash error message */
-.toast.toast-error {
-    background-color: #f44336; /* Red */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
+    /* Styling for flash error message */
+    .toast.toast-error {
+        background-color: #f44336; /* Red */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
 
-/* Positioning for flash error message */
-.toast-top-right {
-    top: 20px;
-    right: 20px;
-    position: fixed;
-    z-index: 9999;
-}
-        </style>
+    /* Positioning for flash error message */
+    .toast-top-right {
+        top: 20px;
+        right: 20px;
+        position: fixed;
+        z-index: 9999;
+    }
+    .nav-link{
+      color: white;
+    }
+    .main-sidebar .sidebar-style-2,
+    .main-sidebar .sidebar-style-2 .sidebar-menu li a,
+    .main-sidebar .sidebar-style-2 .sidebar-menu li .dropdown-menu li a,
+    .main-sidebar .sidebar-style-2 .sidebar-brand a,
+    .main-sidebar .sidebar-style-2 .sidebar-brand a .logo-name {
+        color: white !important;
+        font-size: 50px;
+    }
+    .main-sidebar .sidebar-style-2 .sidebar-menu li a i {
+        color: white !important;
+        font-size: 50px;
+    }
+    .main-sidebar .sidebar-style-2 .logo-name {
+        color: white !important;
+        font-size: 50px;
+    }
+</style>
 <body>
 <div id="flash-success-container">
         <?php if (session()->has('success')) : ?>
@@ -68,9 +88,9 @@
     <?php endif ?>
   <div class="loader"></div>
   <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar sticky">
+    <div class="main-wrapper main-wrapper-1"  >
+      <div class="navbar-bg" ></div>
+      <nav class="navbar navbar-expand-lg main-navbar sticky" style="background: linear-gradient(to right, #e2fafb, #48cef6);">
         <div class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
@@ -214,11 +234,11 @@
           </li>
         </ul>
       </nav>
-      <div class="main-sidebar sidebar-style-2">
+      <div class="main-sidebar sidebar-style-2" style="background: linear-gradient(to left, #e2fafb, #48cef6);">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html"> <img alt="image" src="public/assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">Otika</span>
+            <a href="<?php base_url() ?>order"> <img alt="image" src="public/assets/img/logo.png" class="header-logo" /> <span
+                class="logo-name">Delivery App</span>
             </a>
           </div>
           <ul class="sidebar-menu">
@@ -239,3 +259,17 @@
           </ul>
         </aside>
       </div>
+      <!-- <style>
+        .main-sidebar .sidebar-style-2,
+        .main-sidebar .sidebar-style-2 .sidebar-menu li a,
+        .main-sidebar .sidebar-style-2 .sidebar-menu li .dropdown-menu li a {
+            color: white;
+        }
+        .main-sidebar .sidebar-style-2 .sidebar-menu li a i {
+            color: white;
+        }
+        .main-sidebar .sidebar-style-2 .logo-name {
+            color: white;
+        }
+    </style> -->
+  

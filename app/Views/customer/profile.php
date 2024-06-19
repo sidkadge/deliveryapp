@@ -6,7 +6,7 @@
             <div class="row mt-sm-6">
                 <div class="col-12 col-md-12 col-lg-8">
                     <div class="card author-box">
-                        <div class="card-body">
+                        <div class="card-body" style="background: radial-gradient(circle, #e2fafb, #48cef6);">
                             <div class="author-box-center">
                                 <img alt="image" src="public/assets/img/users/user1.png" class="rounded-circle author-box-picture">
                                 <div class="clearfix"></div>
@@ -70,6 +70,18 @@
         </div>
     </section>
 </div>
+<style>
+    .row label{
+        color: #163ea3;
+        font-size: 15px;
+    }
+    .row input{
+        background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+    .row select{
+        background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+</style>
 
 <script>
 function toggleEdit() {
