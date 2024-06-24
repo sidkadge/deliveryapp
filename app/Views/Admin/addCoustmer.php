@@ -9,7 +9,7 @@
                             <h3 class="card-title">Add Customer</h3>
                         </div>
                         <div class="card-body">
-                            <form id="addCoustmersbyadmin" method="post" action="<?php base_url()?>addCoustmersbyadmin">
+                            <form id="addCoustmersbyadmin" method="post" action="<?=base_url(); ?>addCoustmersbyadmin">
                                 <div class="row">
                                     <div class="form-group col-12">
                                         <label for="first_name">User Name</label>

@@ -245,15 +245,15 @@
             <li class="menu-header">Main</li>
             
             <li class="dropdown">
-              <a href="<?php base_url()?>profile" class="nav-link"><i data-feather="monitor"></i>Profile</a>
+              <a href="<?=base_url(); ?>profile" class="nav-link"><i data-feather="monitor"></i>Profile</a>
             </li>
 
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Order</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?php base_url()?>order">Order</a></li>
-                <li><a class="nav-link" href="<?php base_url()?>Subscriptions">Subscriptions</a></li>
-                <li><a class="nav-link" href="<?php base_url()?>ordehistory">Order History</a></li>
+                <li><a class="nav-link" href="<?=base_url(); ?>order">Order</a></li>
+                <li><a class="nav-link" href="<?=base_url(); ?>Subscriptions">Subscriptions</a></li>
+                <li><a class="nav-link" href="<?=base_url(); ?>ordehistory">Order History</a></li>
               </ul>
             </li>
           </ul>
