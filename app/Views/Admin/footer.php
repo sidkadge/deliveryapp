@@ -1,4 +1,4 @@
-<footer class="main-footer" style="background: linear-gradient(to right, rgb(255, 255, 255), rgb(98 213 225));">
+<footer class="main-footer" style="background: linear-gradient(to right, #fff, #afeae2);">
         <div class="footer-left">
           <a href="#">DELIVERYAPP</a></a>
         </div>

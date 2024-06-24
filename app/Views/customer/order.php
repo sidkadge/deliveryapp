@@ -5,7 +5,7 @@
             <div class="row mt-sm-6">
                 <div class="col-12 col-md-12">
                     <div class="card author-box">
-                    <div class="card-body" style="background: linear-gradient(#fff, skyblue);">
+                    <div class="card-body" style="background-color:skyblue;">
                             <!-- Product Selection -->
                             <form action="orderbook" method="post" id="order_form" enctype="multipart/form-data">
                                 <div class="row">
@@ -28,9 +28,9 @@
                                     <!-- Price for One Unit Display -->
                                     <div class="col-lg-2">
                                         <div class="form-group">
-                                            <label for="pricePerUnit">Price For One Unit</label>
+                                            <label for="pricePerUnit">Price Per Unit</label>
                                             <input type="number" class="form-control" id="pricePerUnit"
-                                                name="pricePerUnit" readonly>
+                                                name="pricePerUnit" min="1">
                                         </div>
                                     </div>
                                     <!-- Quantity Input -->
@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <!-- Payment Details -->
-                                <label for="paymentMode"><b>Payment Details</b></label>
+                                <label for="paymentMode" style="font color: black; font-weight: 400;"><b>Payment Details</b></label>
                                 <div class="row mt-2">
                                     <div class="col-lg-2">
                                         <div class="form-group">
@@ -117,7 +117,7 @@
                                         <div class="form-group" id="screenshotAttachment" style="display: none;">
                                             <label for="screenshotInput">Upload Screenshot</label>
                                             <input type="file" class="form-control-file" id="screenshotInput"
-                                                name="screenshotInput">
+                                                name="screenshotInput" style="border-radius: 5px;">
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                                                 value="upi_id@example.com" readonly>
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary btn-sm" type="button"
-                                                    id="copyButton">Copy</button>
+                                                    id="copyButton" style="font-weight: bold; color: black; height: 2.6rem; border-color: gray;">Copy</button>
                                             </div>
                                         </div>
                                     </div>
@@ -151,8 +151,9 @@
 
 <style>
     .row label{
-        /* color: #163ea3; */
+        color: black;
         font-size: 15px;
+        padding-left: 4px;
     }
     .row input{
         background: linear-gradient(to right,#dfe9f1,white,white);
@@ -160,6 +161,27 @@
     .row select{
         background: linear-gradient(to right,#dfe9f1,white,white);
     }
+    .form-check-input[type="radio"] {
+        width: 22px; 
+        height: 22px;
+    }
+    .form-group input[type="file"]::-webkit-file-upload-button {
+        background-color: gray;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        height: 2.6rem;
+    }
+    .form-group input[type="file"]::-webkit-file-upload-button:hover {
+        background-color: blue;
+    }
+    .btn-primary {
+        width: 150px;
+        height: 40px;
+        font-size: 20px;
+    }
+
 </style>
 
 <script>

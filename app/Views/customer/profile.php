@@ -6,14 +6,14 @@
             <div class="row mt-sm-6">
                 <div class="col-12 col-md-12 col-lg-8">
                     <div class="card author-box">
-                        <div class="card-body" style="background: radial-gradient(circle, #e2fafb, #48cef6);">
+                        <div class="card-body" style="background-color:skyblue;">
                             <div class="author-box-center">
                                 <img alt="image" src="public/assets/img/users/user1.png" class="rounded-circle author-box-picture">
                                 <div class="clearfix"></div>
                                 <div class="author-box-name">
                                     <a href="#"><?= htmlspecialchars($customerData->full_name) ?></a>
                                 </div>
-                                <div class="author-box-job">Customer</div>
+                                <div class="author-box-job"></div>
                             </div>
                             <div class="text-center">
                                 <form id="customer-form" class="form-horizontal" action="Updateprofile" method="post">
@@ -40,15 +40,15 @@
                                             <input type="text" class="form-control" id="alternate_name" name="alternate_name" value="<?= htmlspecialchars($customerData->alternate_name) ?>" readonly>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="alternate_number">Alternate Number</label>
+                                            <label for="alternate_number">Alternate Contact Number</label>
                                             <input type="text" class="form-control" id="alternate_number" name="alternate_number" value="<?= htmlspecialchars($customerData->alternate_number) ?>" readonly>
                                         </div>
                                         <div class="col-md-2 mb-3">
-                                            <label for="flat">Flat</label>
+                                            <label for="flat">Flat No</label>
                                             <input type="text" class="form-control" id="flat" name="flat" value="<?= htmlspecialchars($customerData->flat) ?>" readonly>
                                         </div>
                                         <div class="col-md-2 mb-3">
-                                            <label for="floor">Floor</label>
+                                            <label for="floor">Floor No</label>
                                             <input type="text" class="form-control" id="floor" name="floor" value="<?= htmlspecialchars($customerData->floor) ?>" readonly>
                                         </div>
                                     </div>
@@ -72,14 +72,20 @@
 </div>
 <style>
     .row label{
-        color: #163ea3;
+        color: black;
         font-size: 15px;
+        padding-left: 4px;
     }
     .row input{
         background: linear-gradient(to right,#dfe9f1,white,white);
     }
     .row select{
         background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+    .btn-primary {
+        width: 150px;
+        height: 40px;
+        font-size: 20px;
     }
 </style>
 

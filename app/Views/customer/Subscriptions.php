@@ -5,23 +5,30 @@
             <div class="row mt-sm-6">
                 <div class="col-12 col-md-12">
                     <div class="card author-box">
-                        <div class="card-body" style="background: linear-gradient(#fff, skyblue);">
+                        <div class="card-body" style="background-color: skyblue;">
                             <!-- Start and End Date Selection -->
                             <form action="Subscriptionsbook" method="post" id="order_form"
                                 enctype="multipart/form-data">
 
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="startDate">Start Date</label>
                                             <input type="date" class="form-control" id="startDate" name="startDate"
                                                 min="<?php echo date('Y-m-d'); ?>">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="endDate">End Date</label>
                                             <input type="date" class="form-control" id="endDate" name="endDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="deliveryTime">Delivery Time</label>
+                                            <input type="time" class="form-control" id="deliveryTime"
+                                                name="deliveryTime">
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +108,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
-                                            <label for="pricePerUnit">Price For One Unit</label>
+                                            <label for="pricePerUnit">Price Per Unit</label>
                                             <input type="number" class="form-control" id="pricePerUnit"
                                                 name="pricePerUnit" readonly>
                                         </div>
@@ -132,13 +139,6 @@
                                             <label for="priceOutput">Total Price</label>
                                             <input type="text" name="price" class="form-control" id="priceOutput"
                                                 readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="deliveryTime">Delivery Time</label>
-                                            <input type="time" class="form-control" id="deliveryTime"
-                                                name="deliveryTime">
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +183,7 @@
                                         <div class="form-group" id="screenshotAttachment" style="display: none;">
                                             <label for="screenshotInput">Upload Screenshot</label>
                                             <input type="file" class="form-control-file" id="screenshotInput"
-                                                name="screenshotInput">
+                                                name="screenshotInput" style="border-radius: 5px;">
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,7 @@
                                                 value="upi_id@example.com" readonly>
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary btn-sm" type="button"
-                                                    id="copyButton">Copy</button>
+                                                    id="copyButton" style="font-weight: bold; color: black; height: 2.6rem; border-color: #c5dbd5;">Copy</button>
                                             </div>
                                         </div>
                                     </div>
@@ -218,14 +218,35 @@
 
 <style>
     .row label{
-        color: #163ea3;
+        color: black;
         font-size: 15px;
+        padding-left: 4px;
     }
     .row input{
         background: linear-gradient(to right,#dfe9f1,white,white);
     }
     .row select{
         background: linear-gradient(to right,#dfe9f1,white,white);
+    }
+    .form-check-input[type="radio"]{
+        width: 20px;
+        height: 20px;
+    }
+    .form-group input[type="file"]::-webkit-file-upload-button {
+        background-color: gray;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        height: 2.6rem;
+    }
+    .form-group input[type="file"]::-webkit-file-upload-button:hover {
+        background-color: blue;
+    }
+    .btn-primary {
+        width: 150px;
+        height: 40px;
+        font-size: 20px;
     }
 </style>
 
