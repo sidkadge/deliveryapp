@@ -23,12 +23,13 @@
                                                 <th>Quantity</th>
                                                 <th>Price</th>
                                                 <th>Delivery Date</th>
-                                                <th>Payment Status</th>
-                                                <th>Order Status</th>
+                                                <!-- <th>Payment Status</th>
+                                                <th>Order Status</th> -->
                                                 <th>Delivery Time</th>
                                                 <th>Payment Mode</th>
-                                                <th>Allot Partner</th>
+                                                <!-- <th>Allot Partner</th> -->
                                                 <th>Change Partner</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -47,7 +48,7 @@
                                                 <td><?php echo $row->quantity; ?></td>
                                                 <td><?php echo $row->price; ?></td>
                                                 <td><?php echo date('d-m-Y', strtotime($row->delivery_date)); ?></td>
-                                                <td>
+                                                <!-- <td>
                                                     <?php if ($row->payment_status == 'paid'): ?>
                                                         <span class="badge badge-success"><?php echo $row->payment_status; ?></span>
                                                     <?php else: ?>
@@ -64,10 +65,10 @@
                                                     <?php else: ?>
                                                         <span class="badge badge-warning"><?php echo "Pending"; ?></span>
                                                     <?php endif; ?>
-                                                </td>
+                                                </td> -->
                                                 <td><?php echo date('h:i A', strtotime($row->delivery_time)); ?></td>
                                                 <td><?php echo $row->payment_mode; ?></td>
-                                                <td>
+                                                <!-- <td>
                                                     <?php if (isset($row->allot_partner) && $row->allot_partner): ?>
                                                         <?php foreach ($userdata as $user): ?>
                                                             <?php if ($row->allot_partner == $user->id): ?>
@@ -86,7 +87,7 @@
                                                             </select>
                                                             <input type="hidden" name="order_id" value="<?php echo $row->id; ?>">
                                                     <?php endif; ?>
-                                                </td>
+                                                </td> -->
                                                 <td>
                                                     <?php if (isset($row->allot_partner) && $row->allot_partner): ?>
                                                         <form method="post" action="<?php echo base_url('allotpartners'); ?>">
@@ -98,13 +99,14 @@
                                                                 <?php endforeach; ?>
                                                             </select>
                                                             <input type="hidden" name="order_id" value="<?php echo $row->id; ?>">
-                                                            <button type="submit" class="btn btn-primary mt-2">Change Partner</button>
-                                                        </form>
-                                                    <?php else: ?>
-                                                            <button type="submit" class="btn btn-primary mt-2">Allot Partner</button>
-                                                        </form>
+                                                           
+                                                   
+                                                            
+                                                        
                                                     <?php endif; ?>
                                                 </td>
+                                                <td> <button type="submit" class="btn btn-primary mt-2">Change Partner</button>
+                                                </form></td>
                                             </tr>
                                             <?php endforeach; ?>
                                         </tbody>

@@ -322,6 +322,11 @@ $page = $uri->getSegment(count($pages));
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Access Level</a></li>
+                                                             <li><a class="nav-link" href="<?php base_url()?>Customerlist" <?php if (in_array('Customerlist', $access_levels)) {
+                                                                echo "style='display:block'";
+                                                            } else {
+                                                                echo "style='display:none'";
+                                                            } ?>>Customer list</a></li>
                                 <li><a class="nav-link" href="<?php base_url()?>allotdelivery" <?php if (in_array('allotdelivery', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {

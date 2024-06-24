@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="card" style="background-color: #afeae2">
                         <div class="card-header">
-                            <h4>Received Orders</h4>
+                            <h4>Delivered Orders</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

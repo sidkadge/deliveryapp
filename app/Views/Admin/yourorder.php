@@ -105,11 +105,12 @@
                                             <td><?php echo date('h:i A', strtotime($row->delivery_time)); ?></td>
 
                                             <td>
-                                                <!-- Button to show address in a popup -->
-                                                <button type="button" class="btn btn-info mt-2"
-                                                    onclick="showAddressPopup('<?php echo htmlspecialchars($row->address); ?>')">Show
-                                                    Address</button>
-                                            </td>
+    <!-- Button to show address and location in a popup -->
+    <button type="button" class="btn btn-info mt-2"
+        onclick="showAddressPopup('<?php echo htmlspecialchars($row->address); ?>', '<?php echo $row->location; ?>')">
+        Show Address
+    </button>
+</td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -137,6 +138,7 @@
             </div>
             <div class="modal-body">
                 <p id="modalAddress"></p>
+                <a id="modalLocation" href="#" target="_blank" class="btn btn-primary mt-2">View Location</a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -148,9 +150,15 @@
 <?php include __DIR__.'/../Admin/footer.php'; ?>
 
 <script>
-// Function to show address in a modal
-function showAddressPopup(address) {
+// Function to show address and location in a modal
+function showAddressPopup(address, location) {
     document.getElementById('modalAddress').textContent = address;
+
+    // Update the link to the location
+    var locationLink = document.getElementById('modalLocation');
+    locationLink.href = location;
+    locationLink.style.display = location ? 'inline-block' : 'none'; // Hide the button if no location is provided
+
     $('#addressModal').modal('show');
 }
 </script>
