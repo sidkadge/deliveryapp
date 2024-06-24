@@ -4,9 +4,9 @@
     <section class="section">
         <div class="section-body">
             <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
+                <div class="col-12" >
+                <div class="card" style="background-color: #afeae2;">
+                        <div class="card-header" >
                             <h4>Received Orders</h4>
                         </div>
                         <div class="card-body">
@@ -14,21 +14,20 @@
                                 <?php if (empty($order)): ?>
                                 <p>No orders.</p>
                                 <?php else: ?>
-                                <table class="table table-striped table-hover" style="width:100%;">
-                                    <thead>
+                                <table class="table table-striped table-hover" style="width:100%; background-color: #afeae2;">
+                                    <thead style="background-color: #afeae2; text-align: center; height: 5rem;">
                                         <tr>
-                                            <th>No.</th>
-                                            <th>Order Delivery Status</th>
-                                            <th>Payment Status</th>
-                                            <th>Payment</th>
-                                            <th>Customer Name</th>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Delivery Date</th>
-
-                                            <th>Delivery Time</th>
-                                            <th>Actions</th>
+                                            <th>No.<br>नंबर </th>
+                                            <th>Order Delivery Status<br>ऑर्डर डिलीवरी स्थिति</th>
+                                            <th>Customer Name<br>ग्राहक का नाम</th>
+                                            <th>Product<br>प्रोडक्ट</th>
+                                            <th>Quantity<br>मात्रा</th>
+                                            <th>Price<br>कीमत</th>
+                                            <th>Payment Status<br>भुगतान की स्थिति</th>
+                                            <th>Payment<br>भुगतान</th>
+                                            <th>Delivery Date<br>डिलीवरी की तारीख</th>
+                                            <th>Delivery Time<br>डिलीवरी का समय</th>
+                                            <th>Address<br>पता</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,6 +63,11 @@
                                                     </button>
                                                 </form>
                                             </td>
+
+                                            <td><?php echo $row->user_name; ?></td>
+                                            <td><?php echo $row->product_name; ?></td>
+                                            <td><?php echo $row->quantity; ?></td>
+                                            <td><?php echo $row->price; ?></td>
                                             <td>
                                                 <?php if ($row->payment_status == 'unpaid' && $row->deliveypartnerypaymet == ''): ?>
                                                 <form method="post"
@@ -91,16 +95,12 @@
                                             <td>
                                                 <?php if ($row->payment_status == 'paid'): ?>
                                                 <span
-                                                    class="badge badge-success"><?php echo $row->payment_status; ?></span>
+                                                    class="badge badge-success" style="width: 4.4rem; background-color: #d635d4;"><?php echo $row->payment_status; ?></span>
                                                 <?php else: ?>
                                                 <span
-                                                    class="badge badge-danger"><?php echo $row->payment_status; ?></span>
+                                                    class="badge badge-danger" style="width: 4.4rem;"><?php echo $row->payment_status; ?></span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td><?php echo $row->user_name; ?></td>
-                                            <td><?php echo $row->product_name; ?></td>
-                                            <td><?php echo $row->quantity; ?></td>
-                                            <td><?php echo $row->price; ?></td>
                                             <td><?php echo date('d-m-Y', strtotime($row->delivery_date)); ?></td>
                                             <td><?php echo date('h:i A', strtotime($row->delivery_time)); ?></td>
 

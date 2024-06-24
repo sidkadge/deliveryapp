@@ -6,7 +6,7 @@
                 <!-- left column -->
                 <div class="col-md-12">
                     <!-- jquery validation -->
-                    <div class="card card-primary">
+                    <div class="card card-primary" style="background-color: #afeae2">
                         <div class="card-header">
                             <h3 class="card-title"f>Add User <small></small></h3>
                         </div>
@@ -106,6 +106,13 @@
 
 <?php include __DIR__.'/../Admin/footer.php'; ?>
 
+<style>
+    .form-group label{
+        color: black;
+        font-size: 15px;
+        padding-left: 4px;
+    }
+</style>
 <script>
 $(document).ready(function() {
     $('#addstaff').validate({

@@ -4,19 +4,18 @@
     <section class="section">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card" style="background-color: #afeae2">
                     <div class="card-header">
                         <h4>Pending Orders</h4>
-                        
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <?php if (empty($order)): ?>
-                                <p>No orders booked.</p>
+                            <p>No orders booked.</p>
                             <?php else: ?>
                             <table class="table table-striped">
                                 <tr>
-                                    
+
                                     <th>ID</th> <!-- New Column for Row ID -->
                                     <th>Product</th>
                                     <th>Customer Name</th> <!-- Updated column header to "Customer Name" -->
@@ -32,8 +31,8 @@
                                 <?php 
                                 $rowId = 1; // Initialize counter variable
                                 foreach ($order as $order): ?>
-                                <tr>
-                                    
+                                <tr style="text-align: center;">
+
                                     <td><?php echo $rowId++; ?></td> <!-- Display and increment the row ID -->
                                     <td><?php echo $order->product_name; ?></td>
                                     <td><?php echo $order->user_name; ?></td> <!-- Display the customer name -->
@@ -46,11 +45,13 @@
                                     <td><?php echo $order->payment_mode; ?></td>
                                     <td>
                                         <?php if ($order->order_status == 'D'): ?>
-                                        <div class="badge badge-secondary">Delivered</div>
+                                        <div class="badge badge-secondary" style="background-color: blue;">Delivered
+                                        </div>
                                         <?php elseif ($order->order_status == 'C'): ?>
-                                        <div class="badge badge-danger">Cancelled</div>
+                                        <div class="badge badge-danger" style="background-color: red;">Cancelled</div>
                                         <?php else: ?>
-                                        <div class="badge badge-warning">Pending</div>
+                                        <div class="badge badge-warning" style="background-color: #ffa500;">Pending
+                                        </div>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
