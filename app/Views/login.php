@@ -132,7 +132,7 @@
                                         </div>
                                     </div>
                                     <div class="mt-4 text-muted text-center" style="font-weight: bold; color: #000303 !important;">
-                                        Don't have an account? <a href="<?php base_url()?>registraion" style="font-weight: bold;">register</a>
+                                        Don't have an account? <a href="<?=base_url(); ?>registraion" style="font-weight: bold;">register</a>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn btn-info btn-lg btn-block" tabindex="4" style="font-weight: bold; font-size: 15px;">

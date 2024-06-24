@@ -34,7 +34,7 @@
                                 <h4>Customer Register</h4>
                             </div>
                             <div class="card-body">
-                                <form id="adminForm" method="POST" action="<?php base_url()?>register">
+                                <form id="adminForm" method="POST" action="<?=base_url(); ?>register">
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label for="first_name">User Name *</label>
@@ -111,7 +111,7 @@
                                 </form>
                             </div>
                             <div class="mb-4 text-muted text-center">
-                                Already Registered? <a href="<?php base_url()?>login">Login</a>
+                                Already Registered? <a href="<?=base_url(); ?>login">Login</a>
                             </div>
                         </div>
                     </div>

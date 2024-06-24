@@ -230,6 +230,48 @@ label.error {
                 <a href="#">View All <i class="fas fa-chevron-right"></i></a>
               </div>
             </div>
+
+          </li>
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="public/assets/img/user.png"
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right pullDown">
+       
+              <div class="dropdown-divider"></div>
+              <a href="<?=base_url(); ?>logout" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2" style="background: linear-gradient(to left, #e2fafb, #48cef6);">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="<?php base_url() ?>order"> <img alt="image" src="public/assets/img/logo.png" class="header-logo" /> <span
+                class="logo-name">Delivery App</span>
+            </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="menu-header">Main</li>
+            
+            <li class="dropdown">
+              <a href="<?=base_url(); ?>profile" class="nav-link"><i data-feather="monitor"></i>Profile</a>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Order</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?=base_url(); ?>order">Order</a></li>
+                <li><a class="nav-link" href="<?=base_url(); ?>Subscriptions">Subscriptions</a></li>
+                <li><a class="nav-link" href="<?=base_url(); ?>ordehistory">Order History</a></li>
+              </ul>
+            </li>
+          </ul>
+        </aside>
+      </div>
+      <!-- <style>
+
           </li> -->
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
@@ -274,6 +316,7 @@ label.error {
                 </aside>
             </div>
             <!-- <style>
+
         .main-sidebar .sidebar-style-2,
         .main-sidebar .sidebar-style-2 .sidebar-menu li a,
         .main-sidebar .sidebar-style-2 .sidebar-menu li .dropdown-menu li a {
