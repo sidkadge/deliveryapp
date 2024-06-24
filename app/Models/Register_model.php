@@ -77,6 +77,18 @@ class Register_model extends Model
                         ->where('id', $orderId)
                         ->update(['allot_partner' => $partnerId]);
     }
+    public function updateOrder($table, $data, $conditions)
+    {
+        $builder = $this->db->table($table);
+        $builder->where($conditions);
+        return $builder->update($data);
+    }
+    public function updatePartner($Id, $partnerId)
+    {
+        return $this->db->table('register')
+                        ->where('id', $Id)
+                        ->update(['allot_partner' => $partnerId]);
+    }
     public function updatedpayment($orderId, $payment_status)
     {
         return $this->db->table('tbl_order')
