@@ -57,13 +57,17 @@
                                     <!-- <label for="Alternate_name">Contact Person Details</label> -->
                                     <div class="row">
                                    
-                                        <div class="form-group col-6">
+                                        <div class="form-group col-4">
                                             <label for="Alternate_name">Alternate Contact person Name</label>
                                             <input id="Alternate_name" type="text" class="form-control" name="Alternate_name">
                                         </div>
-                                        <div class="form-group col-6">
+                                        <div class="form-group col-4">
                                             <label for="Alternatenumber">Alternate Contact Number</label>
                                             <input id="Alternatenumber" type="tel" class="form-control" name="Alternatenumber">
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="location">Location(Google Map)</label>
+                                            <input id="location" type="tel" class="form-control" name="location">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -163,6 +167,10 @@
                         required: true,
                         mobile: true
                     },
+                    location:{
+                        required: true,
+                      
+                    },
                     Flat: {
                         required: true
                     },
@@ -197,6 +205,10 @@
                     mobile_no: {
                         required: 'Please enter your mobile number.',
                         mobile: 'Please enter a 10 digit mobile number.'
+                    },
+                    location: {
+                           required: 'Please enter your location From Google map.',
+                        // mobile: 'Please enter your location From Google map.'
                     },
                     Flat: {
                         required: 'Please enter your flat number.'

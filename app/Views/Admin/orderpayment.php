@@ -22,7 +22,7 @@
                                             <th>Product</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                           
+                                            <th>View Screenshot<br>/ transaction Id</th>
                                             <th>Delivery Date</th>
                                             <th>Payment Status</th>
                                             <th>Delivery Time</th>
@@ -35,12 +35,12 @@
                                     </thead>
                                     <tbody>
                                         <?php 
-                                                $rowNumber = 1;
-                                                // Sort orders by delivery date in descending order
-                                                usort($order, function($a, $b) {
-                                                    return strtotime($b->delivery_date) - strtotime($a->delivery_date);
-                                                });
-                                                foreach ($order as $row): 
+                                            $rowNumber = 1;
+                                            // Sort orders by delivery date in descending order
+                                            usort($order, function($a, $b) {
+                                                return strtotime($b->delivery_date) - strtotime($a->delivery_date);
+                                            });
+                                            foreach ($order as $row): 
                                             ?>
                                         <tr>
                                             <td><?php echo $rowNumber++; ?></td>
@@ -48,7 +48,16 @@
                                             <td><?php echo $row->product_name; ?></td>
                                             <td><?php echo $row->quantity; ?></td>
                                             <td><?php echo $row->price; ?></td>
-                                           
+                                            <td>
+                                                <?php if (!empty($row->payment_screenshot_path)): ?>
+                                                <a href="<?= $row->payment_screenshot_path; ?>" target="_blank"
+                                                    class="btn btn-sm btn-primary">
+                                                    View Screenshot
+                                                </a>
+                                                <?php else: ?>
+                                                <span><?php echo $row->transaction_id; ?></span>
+                                                <?php endif; ?>
+                                            </td>
                                             <td><?php echo date('d-m-Y', strtotime($row->delivery_date)); ?></td>
                                             <td>
                                                 <?php if ($row->payment_status == 'paid'): ?>
@@ -73,17 +82,16 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                    <?php if ($row->deliveypartnerypaymet == 'R'): ?>
-                                                        <span class="badge badge-success"><?php echo "Recived" ?></span>
-                                                    <?php elseif ($row->deliveypartnerypaymet == 'NR'): ?>
-                                                        <span class="badge badge-danger"><?php echo "Notcollect" ?></span>
-                                                         <?php elseif ($row->deliveypartnerypaymet == 'B'):?>
-                                                        <span class="badge badge-warning"><?php echo "Booked" ?></span>
-                                                  
-                                                    <?php else: ?>
-                                                        <span class="badge badge-warning"><?php echo "Pending" ?></span>
-                                                    <?php endif; ?>
-                                                </td>
+                                                <?php if ($row->deliveypartnerypaymet == 'R'): ?>
+                                                <span class="badge badge-success"><?php echo "Received" ?></span>
+                                                <?php elseif ($row->deliveypartnerypaymet == 'NR'): ?>
+                                                <span class="badge badge-danger"><?php echo "Not collected" ?></span>
+                                                <?php elseif ($row->deliveypartnerypaymet == 'B'):?>
+                                                <span class="badge badge-warning"><?php echo "Booked" ?></span>
+                                                <?php else: ?>
+                                                <span class="badge badge-warning"><?php echo "Pending" ?></span>
+                                                <?php endif; ?>
+                                            </td>
                                             <td>
                                                 <?php if ($row->payment_status == 'unpaid'): ?>
                                                 <form method="post"
@@ -92,15 +100,16 @@
                                                         class="form-control">
                                                         <option value="paid"
                                                             <?php echo ($row->payment_status == 'paid') ? 'selected' : ''; ?>>
-                                                            Paid</option>
+                                                            Paid
+                                                        </option>
                                                         <option value="unpaid"
                                                             <?php echo ($row->payment_status == 'unpaid') ? 'selected' : ''; ?>>
-                                                            Unpaid</option>
+                                                            Unpaid
+                                                        </option>
                                                     </select>
                                                     <input type="hidden" name="order_id"
                                                         value="<?php echo $row->id; ?>">
                                             </td>
-
                                             <td>
                                                 <button type="submit" class="btn btn-primary mt-2">Update</button>
                                                 </form>

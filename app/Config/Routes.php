@@ -28,12 +28,14 @@ $routes->post('addCoustmersbyadmin','Home::addCoustmersbyadmin');
 $routes->get('Receivedorder', 'Home::Receivedorder');
 $routes->get('orderpayment', 'Home::orderpayment');
 $routes->get('allotdelivery', 'Home::allotdelivery');
+$routes->post('allotpartnerstocustomer', 'Home::allotpartnerstocustomer');
 
 $routes->get('produactlist', 'Home::produact_list');
 $routes->post('updatepaymentstatus', 'Home::updatepaymentstatus');
 $routes->post('deliverypaymentcollect', 'Home::deliverypaymentcollect');
 $routes->get('userlist', 'Home::userlist');
 $routes->get('deliveredorder', 'Home::deliveredorder');
+$routes->get('Customerlist', 'Home::Customerlist');
 
 $routes->get('coustmerlisting', 'Home::coustmerlisting');
 $routes->get('Staffdelivery', 'Home::Staffdelivery');

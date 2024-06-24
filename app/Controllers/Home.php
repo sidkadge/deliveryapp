@@ -17,6 +17,27 @@ class Home extends BaseController
     {
         return view('login');
     }
+    public function Customerlist()
+    {
+        $session = \Config\Services::session();
+        if (!$session->has('id')) {
+            return redirect()->to('/');
+        }
+        $model = new Register_model();
+    
+        $wherecond = array('role' => 'customer','allot_partner'=> null);
+    
+        $data['customer'] = $model->getalldata('register', $wherecond);
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('register');
+        $builder->like('accesslevel', 'yourorder');
+        $builder->where(['role' => 'Admin', 'active' => 'Y']);
+        $query = $builder->get();
+        $data['userdata'] = $query->getResult();
+    //    echo '<pre>'; print_r($data['customer']);die;
+        return view('Admin/Customerlist',$data);
+    }
     public function register()
     {
         // print_r($_POST);die;
@@ -28,6 +49,7 @@ class Home extends BaseController
             'email' => $this->request->getPost('email'),
             'mobile_no' => $this->request->getPost('mobile_no'),
             'role' =>'customer',
+            'location'=>$this->request->getPost('location'),
             'alternate_name' => $this->request->getPost('Alternate_name'),
             'alternate_number' => $this->request->getPost('Alternatenumber'),
             'flat' => $this->request->getPost('Flat'),
@@ -52,6 +74,7 @@ class Home extends BaseController
             'email' => $this->request->getPost('email'),
             'mobile_no' => $this->request->getPost('mobile_no'),
             'role' =>'customer',
+            'location'=>$this->request->getPost('location'),
             'alternate_name' => $this->request->getPost('Alternate_name'),
             'alternate_number' => $this->request->getPost('Alternatenumber'),
             'flat' => $this->request->getPost('Flat'),
@@ -121,7 +144,16 @@ public function Subscriptionsbook()
     $session = \Config\Services::session();
     $id = $session->get('id');
     $request = \Config\Services::request();
-
+    $model = new Register_model();
+    $wherecond = array('id' =>$id,);
+    $partnerid = $model->getalldata('register', $wherecond);
+    $allotPartnerId = null;
+    if (!empty($partnerid) && is_array( $partnerid)) {
+        $user =  $partnerid[0];
+        if (isset($user->allot_partner)) {
+            $allotPartnerId = $user->allot_partner;
+        }
+    }
     // Retrieve common data from the request
     $product = $request->getPost('productDropdown');
     $pricePerUnit =$request->getPost('pricePerUnit');
@@ -155,6 +187,7 @@ public function Subscriptionsbook()
             'delivery_time' => $deliveryTime,
             'payment_mode' => $paymentMode,
             'coustomerid' => $id,
+            'allot_partner'=>$allotPartnerId,
             'unit' => $unit,
             'price' => $pricePerUnit * $quantity,
             'transaction_id' => $transactionIdInput,
@@ -291,6 +324,39 @@ public function Receivedorder()
     }
     return view('Admin/receivedorder',$data);
 }
+// public function orderpayment()
+// {
+//     $session = \Config\Services::session();
+//     if (!$session->has('id')) {
+//         return redirect()->to('/');
+//     }
+
+//     $model = new Register_model();
+//     $db = \Config\Database::connect();
+//     $builder = $db->table('tbl_order');
+
+//     // Use the query builder to add complex conditions
+//     $builder->where('order_status IS NOT NULL', null, false);
+//     $builder->where('is_deleted', 'N');
+    
+//     // Fetch the results
+//     $orders = $builder->get()->getResult();
+
+//     if (!is_array($orders)) {
+//         $orders = [];
+//     }
+
+//     $data['order'] = [];
+//     foreach ($orders as $order) {
+//         $product = $model->getProductById($order->product);
+//         $order->product_name = $product->productname;
+//         $user = $model->getuserById($order->coustomerid);
+//         $order->user_name = $user->full_name;
+//         $data['order'][] = $order;
+//     }
+// echo '<pre>';print_r($data['order']);die;
+//     return view('Admin/orderpayment', $data);
+// }
 public function orderpayment()
 {
     $session = \Config\Services::session();
@@ -319,11 +385,20 @@ public function orderpayment()
         $order->product_name = $product->productname;
         $user = $model->getuserById($order->coustomerid);
         $order->user_name = $user->full_name;
+        
+        // Prepare the path to the payment screenshot
+        if (!empty($order->payment_screenshot)) {
+            $order->payment_screenshot_path = base_url('public/uploads/paymentscreenshot/' . $order->payment_screenshot);
+        } else {
+            $order->payment_screenshot_path = null; // No screenshot available
+        }
+        
         $data['order'][] = $order;
     }
-// print_r($data['order']);die;
+    // echo '<pre>'; print_r($data['order']); die; // Debugging purpose
     return view('Admin/orderpayment', $data);
 }
+
 public function allotdelivery()
 {
     $session = \Config\Services::session();
@@ -565,6 +640,18 @@ public function setmenu()
 public function orderbook() {
     $session = \Config\Services::session();
     $id = $session->get('id');
+    $model = new Register_model();
+    $wherecond = array('id' =>$id,);
+    $partnerid = $model->getalldata('register', $wherecond);
+    $allotPartnerId = null;
+    if (!empty($partnerid) && is_array( $partnerid)) {
+        $user =  $partnerid[0];
+        if (isset($user->allot_partner)) {
+            $allotPartnerId = $user->allot_partner;
+        }
+    }
+
+//    print_r($allotPartnerId);die;
     $request = \Config\Services::request();
     $product = $request->getPost('productDropdown');
     $quantity = $request->getPost('quantityInput');
@@ -594,6 +681,7 @@ public function orderbook() {
         'delivery_time' => $deliveryTime,
         'payment_mode' => $paymentMode,
         'coustomerid'=>$id,
+        'allot_partner'=>$allotPartnerId,
         'unit' => $unit,
         'price' => $price,
         'transaction_id' => $transactionIdInput,
@@ -645,6 +733,31 @@ public function allotpartners()
         return redirect()->to('allotdelivery');
     }
 }
+public function allotpartnerstocustomer()
+{
+    // print_r($_POST);die;
+    $partnerId = $this->request->getPost('allot_partner');
+    $Id = $this->request->getPost('Customer_id');
+    $model = new Register_model();
+    $currentDate = date('Y-m-d'); // Current date in 'YYYY-MM-DD' format
+    $wherecond = ['delivery_date >=' => $currentDate,'coustomerid'=>$Id
+    ];
+
+    $orders = $model->getalldata('tbl_order', $wherecond);
+// print_r($orders);die;
+    foreach ($orders as $order) {
+        $updateData = ['allot_partner' => $partnerId];
+        $updateCondition = ['id' => $order->id]; 
+        $model->updateOrder('tbl_order', $updateData, $updateCondition);
+    }
+    if ($model->updatePartner($Id, $partnerId)) {
+        session()->setFlashdata('success','Partner allotted successfully');
+        return redirect()->to('Customerlist');
+    } else {
+        session()->setFlashdata('error','Failed to allot partner');
+        return redirect()->to('Customerlist');
+    }
+}
 public function updatepaymentstatus()
 {
     // print_r($_POST);die;
@@ -652,7 +765,7 @@ public function updatepaymentstatus()
     $orderId = $this->request->getPost('order_id');
     
     $model = new Register_model();
-    
+  
     if ($model->updatedpayment($orderId, $payment_status)) {
         session()->setFlashdata('success','payemnt recieved successfully');
         return redirect()->to('orderpayment');
@@ -773,6 +886,7 @@ public function deliveredorder()
             $user = $model->getuserById($order->coustomerid);
             $order->user_name = $user->full_name; 
             $order->address = $user->address; 
+            $order->location = $user->location; 
             $data['order'][] = $order;
         }
     } else {
