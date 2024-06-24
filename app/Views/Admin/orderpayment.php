@@ -5,7 +5,7 @@
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card" style="background-color: #afeae2">
                         <div class="card-header">
                             <h4>Payment Status</h4>
                         </div>
