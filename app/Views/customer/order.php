@@ -1,4 +1,14 @@
 <?php include __DIR__.'/../customer/header.php'; ?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Ensure input looks clickable */
+        input[type="date"] {
+            cursor: pointer;
+        }
+        input[type="time"] {
+            cursor: pointer;
+        }
+    </style>
 <div class="main-content">
     <section class="section">
         <div class="section-body">
@@ -61,22 +71,21 @@
                                     <!-- Unit Display -->
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="deliveryDate">Delivery Date</label>
-                                            <input type="date" class="form-control" id="deliveryDate"
-                                                name="deliveryDate" min="">
+                                        <label for="deliveryDate">Delivery Date</label>
+                                        <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" min="2024-01-01">
                                         </div>
                                     </div>
                                     <!-- Delivery Time Input -->
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="deliveryTime">Delivery Time</label>
-                                            <input type="time" class="form-control" id="deliveryTime"
-                                                name="deliveryTime">
+                                        <label for="deliveryTime">Delivery Time</label>
+                                        <input type="time" class="form-control" id="deliveryTime" name="deliveryTime">
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Payment Details -->
-                                <label for="paymentMode" style="font-weight: 400;"><b>Payment Details</b></label>
+                                <label for="paymentMode"><b>Payment Details</b></label>
+
                                 <div class="row mt-2">
                                     <div class="col-lg-2">
                                         <div class="form-group">
@@ -334,3 +343,43 @@ $(document).ready(function() {
     var today = new Date().toISOString().split('T')[0];
     document.getElementById('deliveryDate').setAttribute('min', today);
 </script>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const dateInput = document.getElementById('deliveryDate');
+
+            // Ensure the date picker opens on focus
+            dateInput.addEventListener('focus', function() {
+                dateInput.showPicker(); // Using showPicker() for modern browsers
+            });
+
+            // Click event to ensure the date picker opens
+            dateInput.addEventListener('click', function() {
+                dateInput.showPicker(); // This method is supported in some modern browsers
+            });
+        });
+    </script>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const timeInput = document.getElementById('deliveryTime');
+
+            // Ensure the time picker opens on focus
+            timeInput.addEventListener('focus', function() {
+                if (typeof timeInput.showPicker === "function") {
+                    timeInput.showPicker(); // Using showPicker() for modern browsers
+                } else {
+                    timeInput.click(); // Fallback for browsers without showPicker()
+                }
+            });
+
+            // Click event to ensure the time picker opens
+            timeInput.addEventListener('click', function() {
+                if (typeof timeInput.showPicker === "function") {
+                    timeInput.showPicker(); // This method is supported in some modern browsers
+                } else {
+                    timeInput.focus(); // Fallback for older browsers
+                }
+            });
+        });
+    </script>

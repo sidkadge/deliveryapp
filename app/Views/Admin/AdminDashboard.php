@@ -1,5 +1,9 @@
 <?php include __DIR__.'/../Admin/header.php'; ?>
-
+<style>
+    .badge{
+        width: 6rem;
+    }
+</style>
 <div class="main-content">
     <section class="section">
         <div class="row">
@@ -16,7 +20,6 @@
 
                             <table class="table table-striped">
                                 <tr>
-
                                     <th>ID</th> <!-- New Column for Row ID -->
                                     <th>Product</th>
                                     <th>Customer Name</th> <!-- Updated column header to "Customer Name" -->
@@ -31,9 +34,9 @@
                                 </tr>
                                 <?php 
                                 $rowId = 1; // Initialize counter variable
+                                $today = date("Y-m-d"); // Get today's date
                                 foreach ($order as $order): ?>
                                 <tr style="text-align: center;">
-
                                     <td><?php echo $rowId++; ?></td> <!-- Display and increment the row ID -->
                                     <td><?php echo $order->product_name; ?></td>
                                     <td><?php echo $order->user_name; ?></td> <!-- Display the customer name -->
@@ -45,13 +48,18 @@
                                     <td><?php echo $order->payment_status; ?></td>
                                     <td><?php echo $order->payment_mode; ?></td>
                                     <td>
-                                        <?php if ($order->order_status == 'D'): ?>
-                                        <div class="badge badge-secondary" style="background-color: blue;">Delivered
+                                        <?php 
+                                        // Check if the delivery date is greater than today's date
+                                        if ($order->delivery_date < $today): ?>
+                                        <div class="badge badge-danger">Undelivered
+                                        </div>
+                                        <?php elseif ($order->order_status == 'D'): ?>
+                                        <div class="badge badge-secondary">Delivered
                                         </div>
                                         <?php elseif ($order->order_status == 'C'): ?>
-                                        <div class="badge badge-danger" style="background-color: red;">Cancelled</div>
+                                        <div class="badge badge-danger">Cancelled</div>
                                         <?php else: ?>
-                                        <div class="badge badge-warning" style="background-color: #ffa500;">Pending
+                                        <div class="badge badge-warning">Pending
                                         </div>
                                         <?php endif; ?>
                                     </td>
@@ -68,6 +76,4 @@
     </section>
 </div>
 
-
 <?php include __DIR__.'/../Admin/footer.php';?>
-
