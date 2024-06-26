@@ -1,4 +1,5 @@
 <?php include __DIR__.'/../customer/header.php'; ?>
+
 <div class="main-content">
     <section class="section">
         <div class="section-body">
@@ -45,7 +46,7 @@
                                             <td><?php echo date('d-m-Y', strtotime($row->delivery_date)); ?></td>
                                             <td>
                                                 <?php if ($row->payment_status == 'paid'): ?>
-                                                <span class="badge badge-success"
+                                                <span class="badge badge-primary"
                                                     style="width: 4.4rem; margin-left: 0.8rem;"><?php echo $row->payment_status; ?></span>
                                                 <?php else: ?>
                                                 <span class="badge badge-danger"
@@ -64,9 +65,8 @@
                                                 <?php elseif ($row->order_status == 'B'):?>
                                                 <span class="badge badge-warning"
                                                     style="width: 5rem; margin-left: 0.8rem;"><?php echo "Booked" ?></span>
-
                                                 <?php else: ?>
-                                                <span class="badge badge-warning"
+                                                <span class="badge badge-light"
                                                     style="width: 5rem; margin-left: 0.8rem;"><?php echo "Pending" ?></span>
                                                 <?php endif; ?>
                                             </td>

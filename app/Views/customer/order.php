@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
-                                            <label for="unitOutput">Unit</label>
+                                            <label for="unitOutput">Measure Unit</label>
                                             <input type="text" name="unit" class="form-control" id="unitOutput"
                                                 readonly>
                                         </div>
@@ -85,6 +85,7 @@
                                 </div>
                                 <!-- Payment Details -->
                                 <label for="paymentMode"><b>Payment Details</b></label>
+
                                 <div class="row mt-2">
                                     <div class="col-lg-2">
                                         <div class="form-group">
