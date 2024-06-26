@@ -48,8 +48,8 @@
                                     </div>
                                     <div class="col-lg-4 col-md-3 col-12 form-group">
                                         <label for="confirm_pass"> Confirm Password</label>
-                                        <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_pass"
-                                            name="confirm_pass" required>
+                                        <input type="password" class="form-control" placeholder="Confirm Password"  id="confirm_pass"
+                                            name="confirm_pass" value="<?php if(!empty($single_data)){ echo $single_data->password;} ?>" required>
                                     </div>
                                     <!-- <div class="col-lg-4 col-md-3 col-12 form-group">
                                         <label for="role">Role</label>
