@@ -6,13 +6,13 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Delivery App</title>
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="public/assets/css/app.min.css">
-    <link rel="stylesheet" href="public/assets/bundles/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/app.min.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/bundles/jquery-selectric/selectric.css">
     <!-- Template CSS -->
-    <link rel="stylesheet" href="public/assets/css/style.css">
-    <link rel="stylesheet" href="public/assets/css/components.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/style.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/components.css">
     <!-- Custom style CSS -->
-    <link rel="stylesheet" href="public/assets/css/custom.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='public/assets/img/favicon.ico' />
     <style>
         /* Style for required field labels */
@@ -120,17 +120,17 @@
         </section>
     </div>
     <!-- General JS Scripts -->
-    <script src="public/assets/js/app.min.js"></script>
+    <script src="<?=base_url(); ?>public/assets/js/app.min.js"></script>
     <!-- JS Libraries -->
-    <script src="public/assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js"></script>
-    <script src="public/assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
+    <script src="<?=base_url(); ?>public/assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+    <script src="<?=base_url(); ?>public/assets/bundles/jquery-selectric/jquery.selectric.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <!-- Page Specific JS File -->
-    <script src="public/assets/js/page/auth-register.js"></script>
+    <script src="<?=base_url(); ?>public/assets/js/page/auth-register.js"></script>
     <!-- Template JS File -->
-    <script src="public/assets/js/scripts.js"></script>
+    <script src="<?=base_url(); ?>public/assets/js/scripts.js"></script>
     <!-- Custom JS File -->
-    <script src="public/assets/js/custom.js"></script>
+    <script src="<?=base_url(); ?>public/assets/js/custom.js"></script>
 
     <script>
         $(document).ready(function() {

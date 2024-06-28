@@ -14,6 +14,10 @@ $routes->get('coustmordashboard', 'Home::coustmordashboard');
 $routes->get('profile', 'Home::profile');
 $routes->post('Updateprofile','Home::Updateprofile');
 $routes->get('order', 'Home::order');
+$routes->get('add_to_card/(:any)', 'Home::add_to_card/$1');
+$routes->get('add_to_cardfors/(:any)', 'Home::add_to_cardfors/$1');
+
+
 $routes->get('AdminDashboard', 'Home::AdminDashboard');
 $routes->get('addproduct', 'Home::addproduct');
 $routes->post('add_product','Home::add_product');
@@ -36,6 +40,7 @@ $routes->post('deliverypaymentcollect', 'Home::deliverypaymentcollect');
 $routes->get('userlist', 'Home::userlist');
 $routes->get('deliveredorder', 'Home::deliveredorder');
 $routes->get('Customerlist', 'Home::Customerlist');
+$routes->get('product', 'Home::productpage');
 
 $routes->get('coustmerlisting', 'Home::coustmerlisting');
 $routes->get('Staffdelivery', 'Home::Staffdelivery');
@@ -53,8 +58,11 @@ $routes->post('allotpartners','Home::allotpartners');
 $routes->get('addmenu', 'Home::addmenu');
 $routes->post('set_menu','Home::setmenu');
 $routes->post('orderbook','Home::orderbook');
+$routes->post('add_to_card/orderbook','Home::orderbook');
+
 $routes->get('ordehistory', 'Home::ordehistory');
 $routes->get('Subscriptions', 'Home::Subscriptions');
 $routes->post('Subscriptionsbook','Home::Subscriptionsbook');
+$routes->post('add_to_cardfors/Subscriptionsbook','Home::Subscriptionsbook');
 
 $routes->post('Home/paymentsucess','Home::paymentsucess');

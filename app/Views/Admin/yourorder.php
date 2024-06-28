@@ -53,12 +53,12 @@
                                                         value="<?php echo $row->allot_partner; ?>">
                                                     <button type="submit" style="width: 95px;" name="status" value="D"
                                                         class="btn btn-primary mt-2"
-                                                        <?php echo ($deliveryDate > $today) ? 'disabled' : ''; ?>>
+                                                        <?php echo ($row->deliveypartnerypaymet == '') ? 'disabled' : ''; ?>>
                                                         Delivered
                                                     </button>
                                                     <button type="submit" style="width: 95px;" name="status" value="P"
                                                         class="btn btn-danger mt-2"
-                                                        <?php echo ($deliveryDate > $today) ? 'disabled' : ''; ?>>
+                                                        <?php echo ($row->deliveypartnerypaymet == '') ? 'disabled' : ''; ?>>
                                                         Not Home
                                                     </button>
                                                 </form>
@@ -105,12 +105,12 @@
                                             <td><?php echo date('h:i A', strtotime($row->delivery_time)); ?></td>
 
                                             <td>
-    <!-- Button to show address and location in a popup -->
-    <button type="button" class="btn btn-info mt-2"
-        onclick="showAddressPopup('<?php echo htmlspecialchars($row->address); ?>', '<?php echo $row->location; ?>')">
-        Show Address
-    </button>
-</td>
+                                              <!-- Button to show address and location in a popup -->
+                                            <button type="button" class="btn btn-info mt-2"
+                                                onclick="showAddressPopup('<?php echo htmlspecialchars($row->address); ?>', '<?php echo $row->location; ?>')">
+                                                Show Address
+                                            </button>
+                                        </td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
