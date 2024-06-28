@@ -21,9 +21,9 @@
                                             <th>Order Delivery Status<br>ऑर्डर डिलीवरी स्थिति</th>
                                             <th>Customer Name<br>ग्राहक का नाम</th>
                                             <th>Product<br>प्रोडक्ट</th>
-                                            <th>Quantity<br>मात्रा</th>
+                                            <th>Quantity<br>संख्या</th>
                                             <th>Price<br>कीमत</th>
-                                            <th>Payment Status<br>भुगतान की स्थिति</th>
+                                            <th>Payment Status<br>Collection</th>
                                             <th>Payment<br>भुगतान</th>
                                             <th>Delivery Date<br>डिलीवरी की तारीख</th>
                                             <th>Delivery Time<br>डिलीवरी का समय</th>
@@ -51,15 +51,19 @@
                                                         value="<?php echo $row->id; ?>">
                                                         <input type="hidden" name="allot_partner"
                                                         value="<?php echo $row->allot_partner; ?>">
-                                                    <button type="submit" style="width: 95px;" name="status" value="D"
+
+                                                    <button type="submit" style="width: 120px" name="status" value="D"
                                                         class="btn btn-primary mt-2"
                                                         <?php echo ($row->deliveypartnerypaymet == '') ? 'disabled' : ''; ?>>
-                                                        Delivered
+                                                       डिलिव्हरी दिय
+
                                                     </button>
-                                                    <button type="submit" style="width: 95px;" name="status" value="P"
+                                                    <button type="submit" style="width: 120px;" name="status" value="P"
                                                         class="btn btn-danger mt-2"
+
                                                         <?php echo ($row->deliveypartnerypaymet == '') ? 'disabled' : ''; ?>>
-                                                        Not Home
+                                                       घर पे नहीं
+
                                                     </button>
                                                 </form>
                                             </td>
@@ -76,17 +80,17 @@
                                                         value="<?php echo $row->id; ?>">
                                                     <input type="hidden" name="allot_partner"
                                                         value="<?php echo $row->allot_partner; ?>">
-                                                    <button type="submit" style="width: 95px;"
+                                                    <button type="submit" style="width: 120px;"
                                                         name="deliveypartnerypaymet" value="R"
                                                         class="btn btn-success mt-2"
                                                         <?php echo ($deliveryDate > $today) ? 'disabled' : ''; ?>>
-                                                        Received
+                                                        <!--Received-->पैसे मिले
                                                     </button>
-                                                    <button type="submit" style="width: 95px;"
+                                                    <button type="submit" style="width: 120px;"
                                                         name="deliveypartnerypaymet" value="NR"
-                                                        class="btn btn-warning mt-2"
+                                                        class="btn btn-primary mt-2"
                                                         <?php echo ($deliveryDate > $today) ? 'disabled' : ''; ?>>
-                                                        Not Collect
+                                                        <!-- Not Collect-->पैसे नहीं मिले 
                                                     </button>
                                                 </form>
                                                 <?php endif; ?>
@@ -105,12 +109,15 @@
                                             <td><?php echo date('h:i A', strtotime($row->delivery_time)); ?></td>
 
                                             <td>
+
+
                                               <!-- Button to show address and location in a popup -->
                                             <button type="button" class="btn btn-info mt-2"
                                                 onclick="showAddressPopup('<?php echo htmlspecialchars($row->address); ?>', '<?php echo $row->location; ?>')">
                                                 Show Address
                                             </button>
                                         </td>
+
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
