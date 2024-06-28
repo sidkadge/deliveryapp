@@ -85,7 +85,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="productDropdown">Product</label>
-                                            <select class="form-control" id="productDropdown" name="productDropdown">
+                                            <!-- <select class="form-control" id="productDropdown" name="productDropdown">
                                                 <option value="" disabled selected>Select a product</option>
                                                 <?php foreach ($product as $item): ?>
                                                 <option value="<?php echo $item->id ?>"
@@ -94,6 +94,19 @@
                                                     data-size="<?php echo $item->Size ?>">
                                                     <?php echo $item->productname ?>
                                                 </option>
+                                                <?php endforeach; ?>
+                                            </select> -->
+
+                                            <select class="form-control" id="productDropdown" name="productDropdown" >
+                                                <option value="" disabled selected>Select a product</option>
+                                                <?php foreach ($product as $item): ?>
+                                                    <option value="<?php echo $item->id ?>"
+                                                        data-price="<?php echo $item->price ?>"
+                                                        data-unit="<?php echo $item->unit ?>"
+                                                        data-size="<?php echo $item->Size ?>"
+                                                        <?php if(!empty($sproduct)){ echo ($item->id == $sproduct->id) ? 'selected' : '';} ?>>
+                                                        <?php echo $item->productname ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -168,7 +181,7 @@
                                     <div class="col-lg-2">
                                         <div class="form-group" style="width: 116px; height: 112px;"
                                             id="qrCodeContainer">
-                                            <img alt="QR Code" src="public/assets/img/users/QRcodeMrunalMam.jpg"
+                                            <img alt="QR Code" src="<?=base_url(); ?>public/assets/img/users/QRcodeMrunalMam.jpg"
                                                 class="img-fluid mt-2" style="display: none;">
                                         </div>
                                     </div>
@@ -277,9 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var currentDate = new Date(startDate);
 
         while (currentDate <= new Date(endDate)) {
-            var dayName = currentDate.toLocaleDateString('en-US', {
-                weekday: 'long'
-            });
+            var dayName = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
             if (selectedDays.includes(dayName)) {
                 dates.push(currentDate.toISOString().split('T')[0]);
             }
@@ -361,11 +372,9 @@ document.addEventListener('DOMContentLoaded', function() {
     productDropdown.addEventListener('change', function() {
         var selectedOption = productDropdown.options[productDropdown.selectedIndex];
         pricePerUnit.value = selectedOption.dataset.price;
-        // unitOutput.value = selectedOption.dataset.unit + ' ' + selectedOption.dataset.size;
         unitOutput.value = selectedOption.dataset.size + ' ' + selectedOption.dataset.unit;
         updateTotalPrice();
     });
-
 
     // Handle form submission
     document.getElementById('order_form').addEventListener('submit', function(event) {
@@ -377,9 +386,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initial function call to handle price and unit on page load
-    updateTotalPrice();
+    function initializeForm() {
+        var selectedOption = productDropdown.options[productDropdown.selectedIndex];
+        if (selectedOption) {
+            pricePerUnit.value = selectedOption.dataset.price;
+            unitOutput.value = selectedOption.dataset.size + ' ' + selectedOption.dataset.unit;
+            updateTotalPrice();
+        }
+    }
+
+    initializeForm(); // Call on page load
 });
 </script>
+
 <script>
 $(document).ready(function() {
     $('#order_form').validate({

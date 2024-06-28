@@ -9,14 +9,14 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>coustomer</title>
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="public/assets/css/app.min.css">
-    <link rel="stylesheet" href="public/assets/css/style.css">
-    <link rel="stylesheet" href="public/assets/css/components.css">
-    <link rel="stylesheet" href="public/assets/css/custom.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/app.min.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/style.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/components.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='public/assets/img/favicon.ico' />
     <link rel="stylesheet" href="assets/css/app.min.css">
-    <link rel="stylesheet" href="public/assets/bundles/datatables/datatables.min.css">
-    <link rel="stylesheet" href="public/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 
 
 </head>
@@ -112,7 +112,7 @@ label.error {
            
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
-                                src="public/assets/img/user.png" class="user-img-radious-style"> <span
+                                src="<?=base_url(); ?>public/assets/img/user.png" class="user-img-radious-style"> <span
                                 class="d-sm-none d-lg-inline-block"></span></a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
 
@@ -128,7 +128,7 @@ label.error {
             <div class="main-sidebar sidebar-style-2" style="background: linear-gradient(to left, #e2fafb, #48cef6);">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="<?php base_url() ?>order"> <img alt="image" src="public/assets/img/logo.png"
+                        <a href="<?php base_url() ?>order"> <img alt="image" src="<?=base_url(); ?>public/assets/img/logo.png"
                                 class="header-logo" /> <span class="logo-name">Delivery App</span>
                         </a>
                     </div>
@@ -136,29 +136,33 @@ label.error {
                         <li class="menu-header">Main</li>
 
                         <li class="dropdown">
-                            <a href="<?php base_url()?>profile" class="nav-link"><i
+                            <a href="<?=base_url(); ?>profile" class="nav-link"><i
                                     data-feather="monitor"></i>Profile</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="<?php base_url()?>order" class="nav-link"><i
+                        <!-- <li class="dropdown">
+                            <a href="<?=base_url(); ?>order" class="nav-link"><i
                                     data-feather="shopping-bag"></i>Order</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="<?php base_url()?>Subscriptions" class="nav-link"><i
+                        </li> -->
+                        <!-- <li class="dropdown">
+                            <a href="<?=base_url(); ?>Subscriptions" class="nav-link"><i
                                     data-feather="command"></i>Subscriptions</a>
+                        </li> -->
+                        <li class="dropdown">
+                            <a href="<?=base_url(); ?>ordehistory" class="nav-link"><i
+                                    data-feather="briefcase"></i>Order History</a>
                         </li>
                         <li class="dropdown">
-                            <a href="<?php base_url()?>ordehistory" class="nav-link"><i
-                                    data-feather="briefcase"></i>Order History</a>
+                            <a href="<?=base_url(); ?>product" class="nav-link"><i
+                                    data-feather="briefcase"></i>Product</a>
                         </li>
 
                         <!-- <li class="dropdown">
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="mail"></i><span>Order</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="<?php base_url()?>order">Order</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>Subscriptions">Subscriptions</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>ordehistory">Order History</a></li>
+                                <li><a class="nav-link" href="<?=base_url(); ?>order">Order</a></li>
+                                <li><a class="nav-link" href="<?=base_url(); ?>Subscriptions">Subscriptions</a></li>
+                                <li><a class="nav-link" href="<?=base_url(); ?>ordehistory">Order History</a></li>
                             </ul>
                         </li> -->
                     </ul>

@@ -22,25 +22,34 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="productDropdown">Product</label>
-                                            <select class="form-control" id="productDropdown" name="productDropdown">
+                                           
+                                            <select class="form-control" id="productDropdown" name="productDropdown" onchange="updateProductDetails()">
                                                 <option value="" disabled selected>Select a product</option>
                                                 <?php foreach ($product as $item): ?>
-                                                <option value="<?php echo $item->id ?>"
-                                                    data-price="<?php echo $item->price ?>"
-                                                    data-unit="<?php echo $item->unit ?>"
-                                                    data-size="<?php echo $item->Size ?>">
-                                                    <?php echo $item->productname ?>
-                                                </option>
+                                                    <option value="<?php echo $item->id ?>"
+                                                        data-price="<?php echo $item->price ?>"
+                                                        data-unit="<?php echo $item->unit ?>"
+                                                        data-size="<?php echo $item->Size ?>"
+                                                        <?php if(!empty($sproduct)){ echo ($item->id == $sproduct->id) ? 'selected' : '';} ?>>
+                                                        <?php echo $item->productname ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>  
                                     <!-- Price for One Unit Display -->
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="pricePerUnit">Price Per Unit</label>
                                             <input type="number" class="form-control" id="pricePerUnit"
                                                 name="pricePerUnit" min="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="unitOutput">Measure Unit</label>
+                                            <input type="text" name="unit" class="form-control" id="unitOutput"
+                                                readonly>
                                         </div>
                                     </div>
                                     <!-- Quantity Input -->
@@ -59,13 +68,7 @@
                                                 readonly>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label for="unitOutput">Measure Unit</label>
-                                            <input type="text" name="unit" class="form-control" id="unitOutput"
-                                                readonly>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="row">
                                     <!-- Unit Display -->
@@ -109,7 +112,7 @@
                                     <div class="col-lg-2">
                                         <div class="form-group" style="width: 116px; height: 112px;"
                                             id="qrCodeContainer">
-                                            <img alt="QR Code" src="public/assets/img/users/QRcodeMrunalMam.jpg"
+                                            <img alt="QR Code" src="<?=base_url(); ?>public/assets/img/users/QRcodeMrunalMam.jpg"
                                                 class="img-fluid mt-2" style="display: none;">
                                         </div>
                                     </div>

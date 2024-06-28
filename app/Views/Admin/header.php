@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/style.css">
     <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/components.css">
     <link rel="stylesheet" href="<?=base_url(); ?>public/assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='public/assets/img/favicon.ico' />
-    <link rel="stylesheet" href="public/assets/bundles/datatables/datatables.min.css">
-    <link rel="stylesheet" href="public/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <link rel='shortcut icon' type='image/x-icon' href="<?=base_url(); ?>public/assets/img/favicon.ico' />
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="<?=base_url(); ?>public/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 
 </head>
 <style>
@@ -306,27 +306,27 @@ $page = $uri->getSegment(count($pages));
                                                                 echo "style='display:none'";
                                                             } ?>><i data-feather="user"></i><span>User</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="<?php base_url()?>adduser" <?php if (in_array('adduser', $access_levels) ) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>adduser" <?php if (in_array('adduser', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Add User</a></li>
-                                                             <li><a class="nav-link" href="<?php base_url()?>userlist" <?php if (in_array('userlist', $access_levels)) {
+                                                             <li><a class="nav-link" href="<?=base_url(); ?>userlist" <?php if (in_array('userlist', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>User List</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>addmenu" <?php if (in_array('addmenu', $access_levels)) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>addmenu" <?php if (in_array('addmenu', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Access Level</a></li>
-                                                             <li><a class="nav-link" href="<?php base_url()?>Customerlist" <?php if (in_array('Customerlist', $access_levels)) {
+                                                             <li><a class="nav-link" href="<?=base_url(); ?>Customerlist" <?php if (in_array('Customerlist', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Customer list</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>allotdelivery" <?php if (in_array('allotdelivery', $access_levels)) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>allotdelivery" <?php if (in_array('allotdelivery', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
@@ -340,12 +340,12 @@ $page = $uri->getSegment(count($pages));
                                                                 echo "style='display:none'";
                                                             } ?>><i data-feather="layout"></i><span>Product</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="<?php base_url()?>addproduct" <?php if (in_array('addproduct', $access_levels)) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>addproduct" <?php if (in_array('addproduct', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Add Product</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>productlist" <?php if (in_array('productlist', $access_levels)) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>productlist" <?php if (in_array('productlist', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
@@ -360,12 +360,12 @@ $page = $uri->getSegment(count($pages));
                                                                 echo "style='display:none'";
                                                             } ?>><i data-feather="user-check"></i><span>Customer</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="<?php base_url()?>addCoustmer" <?php if (in_array('addCoustmer', $access_levels)) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>addCoustmer" <?php if (in_array('addCoustmer', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Add Customer</a></li>
-                                <!-- <li><a class="nav-link" href="<?php base_url()?>Feedback" <?php if (in_array('Feedback', $access_levels)) {
+                                <!-- <li><a class="nav-link" href="<?=base_url(); ?>Feedback" <?php if (in_array('Feedback', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
@@ -380,17 +380,17 @@ $page = $uri->getSegment(count($pages));
                                                             } ?>><i data-feather="map-pin"></i><span>Order
                                     Status</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="<?php base_url()?>Receivedorder" <?php if (in_array('Receivedorder', $access_levels) ) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>Receivedorder" <?php if (in_array('Receivedorder', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Received Order</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>yourorder" <?php if (in_array('yourorder', $access_levels) ) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>yourorder" <?php if (in_array('yourorder', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Your Orders</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>orderpayment" <?php if (in_array('orderpayment', $access_levels) ) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>orderpayment" <?php if (in_array('orderpayment', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
@@ -398,7 +398,7 @@ $page = $uri->getSegment(count($pages));
                             </ul>
                         </li>
                         <!-- <li class="dropdown">
-              <a href="<?php base_url()?>" class="nav-link"><i data-feather="monitor"></i>Staff</a>
+              <a href="<?=base_url(); ?>" class="nav-link"><i data-feather="monitor"></i>Staff</a>
             </li> -->
                         <li class="dropdown">
                             <a href="#" class="menu-toggle nav-link has-dropdown" <?php if (in_array('coustmerlisting', $access_levels) || in_array('Orderlist', $access_levels) || in_array('Staffdelivery', $access_levels)  ) {
@@ -407,22 +407,22 @@ $page = $uri->getSegment(count($pages));
                                                                 echo "style='display:none'";
                                                             } ?>><i data-feather="mail"></i><span>Reports</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="<?php base_url()?>coustmerlisting" <?php if (in_array('coustmerlisting', $access_levels) ) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>coustmerlisting" <?php if (in_array('coustmerlisting', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Customer List</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>Orderlist" <?php if (in_array('Orderlist', $access_levels) ) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>Orderlist" <?php if (in_array('Orderlist', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Order List</a></li>
-                                <li><a class="nav-link" href="<?php base_url()?>Staffdelivery" <?php if (in_array('Staffdelivery', $access_levels) ) {
+                                <li><a class="nav-link" href="<?=base_url(); ?>Staffdelivery" <?php if (in_array('Staffdelivery', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
                                                             } ?>>Delivery Staff</a></li>
-                                                             <li><a class="nav-link" href="<?php base_url()?>deliveredorder" <?php if (in_array('deliveredorder', $access_levels) ) {
+                                                             <li><a class="nav-link" href="<?=base_url(); ?>deliveredorder" <?php if (in_array('deliveredorder', $access_levels) ) {
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
