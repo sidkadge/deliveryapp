@@ -23,8 +23,6 @@
                                                 <th>Quantity</th>
                                                 <th>Price</th>
                                                 <th>Delivery Date</th>
-                                                <!-- <th>Payment Status</th>
-                                                <th>Order Status</th> -->
                                                 <th>Delivery Time</th>
                                                 <th>Payment Mode</th>
                                                 <!-- <th>Allot Partner</th> -->

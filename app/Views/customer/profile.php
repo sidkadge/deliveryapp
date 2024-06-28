@@ -8,7 +8,7 @@
                     <div class="card author-box">
                         <div class="card-body" style="background-color:skyblue;">
                             <div class="author-box-center">
-                                <img alt="image" src="public/assets/img/users/user1.png" class="rounded-circle author-box-picture">
+                                <img alt="image" src="<?=base_url(); ?>public/assets/img/users/user1.png" class="rounded-circle author-box-picture">
                                 <div class="clearfix"></div>
                                 <div class="author-box-name">
                                     <a href="#"><?= htmlspecialchars($customerData->full_name) ?></a>

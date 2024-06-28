@@ -51,15 +51,19 @@
                                                         value="<?php echo $row->id; ?>">
                                                         <input type="hidden" name="allot_partner"
                                                         value="<?php echo $row->allot_partner; ?>">
-                                                    <button type="submit" style="width: 120px;" name="status" value="D"
-                                                        class="btn btn-warning mt-2"
-                                                        <?php echo ($deliveryDate > $today) ? 'disabled' : ''; ?>>
-                                                        <!--Delivered-->डिलिव्हरी दिया
+
+                                                    <button type="submit" style="width: 120px" name="status" value="D"
+                                                        class="btn btn-primary mt-2"
+                                                        <?php echo ($row->deliveypartnerypaymet == '') ? 'disabled' : ''; ?>>
+                                                       डिलिव्हरी दिय
+
                                                     </button>
                                                     <button type="submit" style="width: 120px;" name="status" value="P"
                                                         class="btn btn-danger mt-2"
-                                                        <?php echo ($deliveryDate > $today) ? 'disabled' : ''; ?>>
-                                                        <!--Not Home-->घर पे नहीं
+
+                                                        <?php echo ($row->deliveypartnerypaymet == '') ? 'disabled' : ''; ?>>
+                                                       घर पे नहीं
+
                                                     </button>
                                                 </form>
                                             </td>
@@ -105,12 +109,15 @@
                                             <td><?php echo date('h:i A', strtotime($row->delivery_time)); ?></td>
 
                                             <td>
-                                                <!-- Button to show address and location in a popup -->
-                                                <button type="button" class="btn btn-info mt-2"
-                                                    onclick="showAddressPopup('<?php echo htmlspecialchars($row->address); ?>', '<?php echo $row->location; ?>')">
-                                                    Show Address
-                                                </button>
-                                            </td>
+
+
+                                              <!-- Button to show address and location in a popup -->
+                                            <button type="button" class="btn btn-info mt-2"
+                                                onclick="showAddressPopup('<?php echo htmlspecialchars($row->address); ?>', '<?php echo $row->location; ?>')">
+                                                Show Address
+                                            </button>
+                                        </td>
+
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>

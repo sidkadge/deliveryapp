@@ -112,7 +112,7 @@ class Home extends BaseController
             $session->set($userData);
             // print_r($userData);die;
             if ($user['role'] === 'customer') {
-                return redirect()->to(base_url('order'));
+                return redirect()->to(base_url('product'));
             } 
                 elseif ($user['role'] === 'Admin' && $userData['accesslevel']==='yourorder') {
                     return redirect()->to(base_url('yourorder'));
@@ -276,6 +276,68 @@ public function order()
 // print_r($data['product']);die;
     echo view('customer/order',$data);
 }
+
+public function add_to_card($id)
+{
+    $session = \Config\Services::session();
+    if (!$session->has('id')) {
+        return redirect()->to('/');
+    }
+
+    $model = new Register_model();
+
+    // Fetch product data by ID
+    $wherecond = array(
+        'is_deleted' => 'N'
+    );
+
+    $data['product'] = $model->getalldata('tbl_produact', $wherecond);
+
+    $wherecond = array(
+        'id' => $id,
+        'is_deleted' => 'N'
+    );
+
+    $data['sproduct'] = $model->getsinglerow('tbl_produact', $wherecond);
+
+
+  
+
+
+    echo view('customer/order', $data);
+}
+
+
+public function add_to_cardfors($id)
+{
+    $session = \Config\Services::session();
+    if (!$session->has('id')) {
+        return redirect()->to('/');
+    }
+
+    $model = new Register_model();
+
+    // Fetch product data by ID
+    $wherecond = array(
+        'is_deleted' => 'N'
+    );
+
+    $data['product'] = $model->getalldata('tbl_produact', $wherecond);
+
+    $wherecond = array(
+        'id' => $id,
+        'is_deleted' => 'N'
+    );
+
+    $data['sproduct'] = $model->getsinglerow('tbl_produact', $wherecond);
+
+
+  
+
+
+echo view('customer/Subscriptions',$data);
+}
+
 public function AdminDashboard()
 {
     $model = new Register_model();
@@ -486,39 +548,104 @@ public function addproduct()
     $data['single_data'] = $model->get_single_data('tbl_produact', $wherecond);
     echo view('Admin/Addproduct', $data);
 }
+// public function add_product()
+// {
+//     // print_r($_POST);die;
+//     $productname = $this->request->getPost('productname');
+//     $price=$this->request->getPost('price');
+//     $Size=$this->request->getPost('Size');
+//     $unit=$this->request->getPost('unit');
+//     $brand=$this->request->getPost('brand');
+//     $data = [
+//         'productname' => $productname,
+//         'price'=>$price,
+//         'Size'=>$Size,
+//         'unit'=>$unit,
+//          'brand'=>$brand,
+//     ];
+//     $db = \Config\Database::connect();
+//     $tbl_produact = $db->table('tbl_produact');
+//     $existingTask = $tbl_produact->where('productname', $productname)->get()->getFirstRow();
+//     if ($existingTask && ($this->request->getVar('id') == "" || $existingTask->id != $this->request->getVar('id'))) {
+//         session()->setFlashdata('success', 'Task name already exists.');
+//         return redirect()->to('productlist');
+//     }
+
+//     if ($this->request->getVar('id') == "") {
+//         $tbl_produact->insert($data);
+//         session()->setFlashdata('success', 'Menu added successfully.');
+//     } else {
+//         $tbl_produact->where('id', $this->request->getVar('id'))->update($data);
+//         session()->setFlashdata('success', 'Menu updated successfully.');
+//     }
+
+//     return redirect()->to('produactlist');
+// }
 public function add_product()
 {
-    // print_r($_POST);die;
+    // Collect form data
     $productname = $this->request->getPost('productname');
-    $price=$this->request->getPost('price');
-    $Size=$this->request->getPost('Size');
-    $unit=$this->request->getPost('unit');
-    $brand=$this->request->getPost('brand');
+    $price = $this->request->getPost('price');
+    $Size = $this->request->getPost('Size');
+    $unit = $this->request->getPost('unit');
+    $brand = $this->request->getPost('brand');
+    
+    // Initialize the data array with form data
     $data = [
         'productname' => $productname,
-        'price'=>$price,
-        'Size'=>$Size,
-        'unit'=>$unit,
-         'brand'=>$brand,
+        'price' => $price,
+        'Size' => $Size,
+        'unit' => $unit,
+        'brand' => $brand,
     ];
+
+    // Check if an image file is uploaded
+    $imageFile = $this->request->getFile('image');
+    if ($imageFile && $imageFile->isValid() && !$imageFile->hasMoved()) {
+        // Validate the image file
+        $validationRule = [
+            'uploaded[image]',
+            'mime_in[image,image/jpg,image/jpeg,image/png,image/gif]',
+            'max_size[image,2048]',  // Max size 2MB
+        ];
+        
+        if ($this->validate(['image' => $validationRule])) {
+            // Move the image file to the 'public/Images' directory with a new unique name
+            $newImageName = $imageFile->getRandomName();
+            $imageFile->move('public/Imges', $newImageName);
+            
+            // Add the image name to the data array
+            $data['image'] = $newImageName;
+        } else {
+            // Validation failed, redirect with error
+            session()->setFlashdata('error', 'Image upload failed: ' . implode(', ', $this->validator->getErrors()));
+            return redirect()->to('productlist');
+        }
+    }
+
+    // Connect to the database and get the product table
     $db = \Config\Database::connect();
     $tbl_produact = $db->table('tbl_produact');
-    $existingTask = $tbl_produact->where('productname', $productname)->get()->getFirstRow();
-    if ($existingTask && ($this->request->getVar('id') == "" || $existingTask->id != $this->request->getVar('id'))) {
-        session()->setFlashdata('success', 'Task name already exists.');
+
+    // Check if the product name already exists
+    $existingProduct = $tbl_produact->where('productname', $productname)->get()->getFirstRow();
+    if ($existingProduct && ($this->request->getVar('id') == "" || $existingProduct->id != $this->request->getVar('id'))) {
+        session()->setFlashdata('error', 'Product name already exists.');
         return redirect()->to('productlist');
     }
 
+    // Insert or update product
     if ($this->request->getVar('id') == "") {
         $tbl_produact->insert($data);
-        session()->setFlashdata('success', 'Menu added successfully.');
+        session()->setFlashdata('success', 'Product added successfully.');
     } else {
         $tbl_produact->where('id', $this->request->getVar('id'))->update($data);
-        session()->setFlashdata('success', 'Menu updated successfully.');
+        session()->setFlashdata('success', 'Product updated successfully.');
     }
 
-    return redirect()->to('produactlist');
+    return redirect()->to('productlist');
 }
+
 public function produact_list()
 {
     $model = new Register_model();
@@ -956,5 +1083,19 @@ public function deliveredorder()
         //  return $this->response->setJSON(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
      }
  }
+ public function productpage()
+{
+    $session = \Config\Services::session();
+    if (!$session->has('id')) {
+        return redirect()->to('/');
+    }
+
+    $model = new Register_model();
+    $wherecond = array('is_deleted' => 'N');
+    $data['products'] = $model->getalldata('tbl_produact', $wherecond);
+
+    echo view('customer/productpage', $data);
+}
+
  
 }
