@@ -29,14 +29,14 @@
                                         <input type="email" name="email" class="form-control" id="email"
                                             placeholder="Email"
                                             value="<?php if(!empty($single_data)){ echo $single_data->email;} ?>">
-                                        <span id="emailError" style="color: crimson;"></span>
+                                        <span id="emailError"></span>
                                     </div>
                                     <div class="col-lg-4 col-md-3 col-12 form-group">
                                         <label for="mobile_no">Mobile number</label>
                                         <input type="tel" name="mobile_no" class="form-control" id="mobile_no"
                                             placeholder="Contact Number" maxlength="10"
                                             value="<?php if(!empty($single_data)){ echo $single_data->mobile_no;} ?>">
-                                        <span id="mobile_noError" style="color: crimson;"></span>
+                                        <span id="mobile_noError"></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -107,8 +107,8 @@
 <?php include __DIR__.'/../Admin/footer.php'; ?>
 
 <style>
-    .form-group label{
-        color: black;
+    .form-group span{
+        color: red;
         font-size: 15px;
         padding-left: 4px;
     }
@@ -120,10 +120,10 @@ $(document).ready(function() {
             full_name: {
                 required: true,
             },
-            email: {
-                required: true,
-                email: true
-            },
+            // email: {
+            //     required: true,
+            //     email: true
+            // },
             mobile_no: {
                 required: true,
                 digits: true,
@@ -148,10 +148,10 @@ $(document).ready(function() {
             full_name: {
                 required: 'Please enter your name.',
             },
-            email: {
-                required: 'Please enter an email address.',
-                email: 'Please enter a valid email address.'
-            },
+            // email: {
+            //     required: 'Please enter an email address.',
+            //     email: 'Please enter a valid email address.'
+            // },
             mobile_no: {
                 required: 'Please enter your mobile number.',
                 digits: 'Please enter only digits.',

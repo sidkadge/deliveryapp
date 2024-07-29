@@ -102,8 +102,8 @@
                                 <form method="POST" action="<?php echo base_url();?>dologin" class="needs-validation"
                                     novalidate="">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email" class="form-control" placeholder="Enter Email" name="email" tabindex="1"
+                                        <label for="mobile_no">Mobile number</label>
+                                        <input id="mobile_no" type="tel" class="form-control" placeholder="Enter mobile number" name="mobile_no" tabindex="1"
                                             required autofocus>
                                         <div class="invalid-feedback">
                                             Please fill in your email

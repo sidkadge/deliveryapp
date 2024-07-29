@@ -1,8 +1,8 @@
 <?php include __DIR__.'/../Admin/header.php'; ?>
 <style>
-    .badge{
-        width: 6rem;
-    }
+.badge {
+    width: 6rem;
+}
 </style>
 <div class="main-content">
     <section class="section">
@@ -45,7 +45,17 @@
                                     <td><?php echo $order->unit; ?></td>
                                     <td><?php echo date("d-m-Y", strtotime($order->delivery_date)); ?></td>
                                     <td><?php echo date("h:i A", strtotime($order->delivery_time)); ?></td>
-                                    <td><?php echo $order->payment_status; ?></td>
+                                    <td>
+                                        <?php 
+                                  if ($order->payment_status == 'paid'): ?>
+                                        <div class="badge badge-success">Paid</div>
+                                        <?php elseif ($order->payment_status == 'unpaid'): ?>
+                                        <div class="badge badge-danger">Unpaid</div>
+                                        <?php else: ?>
+                                        <div class="badge badge-warning">Unknown Status</div>
+                                        <?php endif; ?>
+                                    </td>
+
                                     <td><?php echo $order->payment_mode; ?></td>
                                     <td>
                                         <?php 

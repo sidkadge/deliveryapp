@@ -7,16 +7,54 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('login');
+        return view('home');
     }
-    public function getregister()
-   {
-    return view('register');
-   }
     public function login()
     {
         return view('login');
     }
+    public function contactus()
+    {
+        return view('contact');
+    }
+    public function getregister()
+   {
+    $model = new Register_model();
+    
+    $wherecond = array('is_active' => 'Y',);
+
+    $zones = $model->getalldata('zone', $wherecond);
+    // print_r($data['zons']);die;
+    return view('register',['zones' => $zones]);
+   }
+   public function getSocietiesByZone()
+   {
+  
+    $postData = $this->request->getPost();
+    $zone_id = $postData['zone_id']; 
+    $model = new Register_model();
+    $wherecond = array('zone_id' => $zone_id, 'is_active' => 'Y');
+    $societies = $model->getalldata('society', $wherecond);
+    echo json_encode($societies);
+   }
+   public function getBuildingsBySociety()
+{
+    $postData = $this->request->getPost();
+    $zone_id = $postData['zone_id'];
+    $society_id = $postData['society_id'];
+
+    $model = new Register_model();
+    
+    $wherecond = array(
+        'is_active' => 'Y',
+        'zone_id' => $zone_id,
+        'society_id' => $society_id
+    );
+
+    $buildings = $model->getalldata('building', $wherecond);
+    echo json_encode($buildings);
+}
+   
     public function Customerlist()
     {
         $session = \Config\Services::session();
@@ -40,35 +78,58 @@ class Home extends BaseController
     }
     public function register()
     {
-        // print_r($_POST);die;
         $db = \Config\Database::connect();
-
-        // Get the POST data
-        $data = [
-            'full_name' => $this->request->getPost('full_name'),
-            'email' => $this->request->getPost('email'),
-            'mobile_no' => $this->request->getPost('mobile_no'),
-            'role' =>'customer',
-            'location'=>$this->request->getPost('location'),
-            'alternate_name' => $this->request->getPost('Alternate_name'),
-            'alternate_number' => $this->request->getPost('Alternatenumber'),
-            'flat' => $this->request->getPost('Flat'),
-            'floor' => $this->request->getPost('Floor'),
-            'address' => $this->request->getPost('Address'),
-            'password' =>$this->request->getPost('password'),
-            'agree'=>$this->request->getPost('agree'),
+        $postData = $this->request->getPost();
+        $zoneId = $postData['Zone'];
+    
+        // Handle Society
+        if ($postData['Societyname'] === 'Other') {
+            $societyName = $postData['OtherSocietyname'];
+            $societyData = [
+                'Societyname' => $societyName,
+                'zone_id' => $zoneId
+            ];
+            $db->table('society')->insert($societyData);
+            $societyId = $db->insertID();
+        } else {
+            $societyId = $postData['Societyname'];
+        }
+        if ($postData['Buildingname'] === 'Other') {
+            $buildingName = $postData['OtherBuildingname'];
+            $buildingData = [
+                'Buildingname' => $buildingName,
+                'zone_id' => $zoneId,
+                'society_id' => $societyId
+            ];
+            $db->table('building')->insert($buildingData);
+            $buildingId = $db->insertID();
+        } else {
+            $buildingId = $postData['Buildingname'];
+        }
+        $registerData = [
+            'full_name' => $postData['full_name'],
+            'email' => $postData['email'],
+            'mobile_no' => $postData['mobile_no'],
+            'role' => 'customer',
+            'location' => $postData['location'],
+            'alternate_name' => $postData['Alternate_name'],
+            'alternate_number' => $postData['Alternatenumber'],
+            'flat' => $postData['Flat'],
+            'floor' => $postData['Floor'],
+            'address' => $postData['Address'],
+            'password' => $postData['password'],
+            'agree' => $postData['agree'],
+            'Zone' => $zoneId,
+            'Societyname' => $societyId,
+            'Buildingname' => $buildingId
         ];
-
-        // Insert data into the database table
-        $db->table('register')->insert($data);
-        return redirect()->to('login'); 
+        $db->table('register')->insert($registerData);
+        return redirect()->to('login');
     }
+    
     public function addCoustmersbyadmin()
     {  
-
         $db = \Config\Database::connect();
-        // print_r($_POST);die;
-        // Get the POST data
         $data = [
             'full_name' => $this->request->getPost('full_name'),
             'email' => $this->request->getPost('email'),
@@ -83,34 +144,28 @@ class Home extends BaseController
             'password' =>$this->request->getPost('password'),
             'agree'=>'on',
         ];
-
-        // Insert data into the database table
         $db->table('register')->insert($data);
         return redirect()->to('addCoustmer'); 
     }
     public function dologin()
     {
-    //  print_r($_POST);die;
     $model = new Register_model();
-
     $session = \CodeIgniter\Config\Services::session();
-    // $model = new Loginmodel();
-    $email = $this->request->getPost('email');
+    $mobile_no = $this->request->getPost('mobile_no');
     $password = $this->request->getPost('password');  
-    $user = $model->checkCredentials(['email' => $email]);
-    // print_r($user);die;
+    $user = $model->checkCredentials(['mobile_no' => $mobile_no]);
     if ($user) {
         if ($password === $user['password']) {  
             $userData = [
                 'id' => $user['id'],
                 'full_name' => $user['full_name'],
                 'email' => $user['email'],
+                'mobile_no' => $user['mobile_no'],
                 'role' => $user['role'],
                 'accesslevel'=>$user['accesslevel'],
             
             ];
             $session->set($userData);
-            // print_r($userData);die;
             if ($user['role'] === 'customer') {
                 return redirect()->to(base_url('product'));
             } 
@@ -140,7 +195,6 @@ public function coustmordashboard()
 }
 public function Subscriptionsbook()
 {
-    // print_r($_POST);die;
     $session = \Config\Services::session();
     $id = $session->get('id');
     $request = \Config\Services::request();
@@ -154,7 +208,6 @@ public function Subscriptionsbook()
             $allotPartnerId = $user->allot_partner;
         }
     }
-    // Retrieve common data from the request
     $product = $request->getPost('productDropdown');
     $pricePerUnit =$request->getPost('pricePerUnit');
     $quantity = $request->getPost('quantityInput');
@@ -163,11 +216,7 @@ public function Subscriptionsbook()
     $price = $request->getPost('price');
     $unit = $request->getPost('unit');
     $transactionIdInput = $request->getPost('transactionIdInput');
-
-    // Retrieve selected dates from the request
     $selectedDates = explode(',', $request->getPost('selectedDates'));
-
-    // Validation setup
     $validation = \Config\Services::validation();
     $validation->setRules([
         'productDropdown' => 'required',
@@ -177,8 +226,6 @@ public function Subscriptionsbook()
         'transactionIdInput' => 'permit_empty',
         'screenshotInput' => 'permit_empty|uploaded[screenshotInput]|max_size[screenshotInput,1024]|ext_in[screenshotInput,jpg,jpeg,png,pdf]'
     ]);
-
-    // Iterate over selected dates and insert records
     foreach ($selectedDates as $date) {
         $data = [
             'product' => $product,
@@ -192,24 +239,19 @@ public function Subscriptionsbook()
             'price' => $pricePerUnit * $quantity,
             'transaction_id' => $transactionIdInput,
         ];
-
-        // Handle file upload
         $file = $request->getFile('screenshotInput');
         if ($file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
             $file->move(ROOTPATH . 'public/uploads/paymentscreenshot', $newName);
             $data['payment_screenshot'] = $newName;
         }
-
-        // Update payment status based on transaction ID or uploaded screenshot
         if (!empty($transactionIdInput) || !empty($data['payment_screenshot'])) {
             $data['payment_status'] = 'paid';
-            $data['deliveypartnerypaymet'] = 'R'; // Not sure what 'deliveypartnerypaymet' is, so replaced with 'R'
+            $data['deliveypartnerypaymet'] = 'R'; 
         } else {
             $data['payment_status'] = 'unpaid';
         }
 
-        // Insert data into database
         $db = \Config\Database::connect();
         $db->table('tbl_order')->insert($data);
     }
@@ -226,11 +268,8 @@ public function Subscriptions()
         return redirect()->to('/');
     }
     $model = new Register_model();
-
     $wherecond = array('is_deleted' => 'N');
-
     $data['product'] = $model->getalldata('tbl_produact', $wherecond);
-    // print_r( $data['product']);die;
     echo view('customer/Subscriptions',$data);
 }
 public function ordehistory()
@@ -242,24 +281,16 @@ public function ordehistory()
     $id = $session->get('id');
     $model = new Register_model();
     $wherecond = array('coustomerid' => $id, 'is_deleted' => 'N');
-
-    // Get order data
     $orders = $model->getalldata('tbl_order', $wherecond);
-
-    // Fetch product names
     $data['order'] = [];
     if (!is_array($orders)) {
         $orders = [];
     }
-    // print_r($orders);die;
     foreach ($orders as $order) {
-
         $product = $model->getProductById($order->product);
-        $order->product_name = $product->productname; // Assuming your product table has a 'name' field
+        $order->product_name = $product->productname; 
         $data['order'][] = $order;
     }
-
-    // print_r($data['order']); // Debugging line, remove or comment out after confirming it works
     echo view('customer/ordehistory', $data);
 }
 public function order()
@@ -269,11 +300,8 @@ public function order()
         return redirect()->to('/');
     }
     $model = new Register_model();
-
     $wherecond = array('is_deleted' => 'N');
-
     $data['product'] = $model->getalldata('tbl_produact', $wherecond);
-// print_r($data['product']);die;
     echo view('customer/order',$data);
 }
 
@@ -285,25 +313,16 @@ public function add_to_card($id)
     }
 
     $model = new Register_model();
-
-    // Fetch product data by ID
     $wherecond = array(
         'is_deleted' => 'N'
     );
-
     $data['product'] = $model->getalldata('tbl_produact', $wherecond);
-
     $wherecond = array(
         'id' => $id,
         'is_deleted' => 'N'
     );
 
     $data['sproduct'] = $model->getsinglerow('tbl_produact', $wherecond);
-
-
-  
-
-
     echo view('customer/order', $data);
 }
 
@@ -314,14 +333,10 @@ public function add_to_cardfors($id)
     if (!$session->has('id')) {
         return redirect()->to('/');
     }
-
     $model = new Register_model();
-
-    // Fetch product data by ID
     $wherecond = array(
         'is_deleted' => 'N'
     );
-
     $data['product'] = $model->getalldata('tbl_produact', $wherecond);
 
     $wherecond = array(
@@ -330,11 +345,6 @@ public function add_to_cardfors($id)
     );
 
     $data['sproduct'] = $model->getsinglerow('tbl_produact', $wherecond);
-
-
-  
-
-
 echo view('customer/Subscriptions',$data);
 }
 
@@ -343,14 +353,10 @@ public function AdminDashboard()
     $model = new Register_model();
     $wherecond = array('order_status' => 'B');
     $orders = $model->getalldata('tbl_order', $wherecond);
-
-    // Ensure $orders is an array
     if (!is_array($orders)) {
         $orders = [];
     }
-
     $data['order'] = [];
-
     foreach ($orders as $order) {
         $product = $model->getProductById($order->product);
         $order->product_name = $product->productname; 
@@ -358,7 +364,6 @@ public function AdminDashboard()
         $order->user_name = $user->full_name; 
         $data['order'][] = $order;
     }
-    // print_r($orders);die;
     return view('Admin/AdminDashboard', $data);
 }
 
@@ -446,18 +451,14 @@ public function orderpayment()
         $product = $model->getProductById($order->product);
         $order->product_name = $product->productname;
         $user = $model->getuserById($order->coustomerid);
-        $order->user_name = $user->full_name;
-        
-        // Prepare the path to the payment screenshot
+        $order->user_name = $user->full_name;    
         if (!empty($order->payment_screenshot)) {
             $order->payment_screenshot_path = base_url('public/uploads/paymentscreenshot/' . $order->payment_screenshot);
         } else {
-            $order->payment_screenshot_path = null; // No screenshot available
-        }
-        
+            $order->payment_screenshot_path = null; 
+        }  
         $data['order'][] = $order;
     }
-    // echo '<pre>'; print_r($data['order']); die; // Debugging purpose
     return view('Admin/orderpayment', $data);
 }
 
@@ -487,7 +488,6 @@ public function allotdelivery()
         
         $data['order'][] = $order;
     }
-
     $db = \Config\Database::connect();
     $builder = $db->table('register');
     $builder->like('accesslevel', 'yourorder');
@@ -513,7 +513,6 @@ public function profile()
         'id' => $id,
     ];
     $customerData = $model->getsinglerow('register', $wherecond1);
-//   print_r($coustmordata);die;
   echo view('customer/profile', ['customerData' => $customerData]);
 }
 public function Updateprofile()
@@ -521,8 +520,6 @@ public function Updateprofile()
     $session = \Config\Services::session();
     $id = $session->get('id');
     $model = new Register_model();
-
-    // Collect POST data
     $data = [
         'full_name' => $this->request->getPost('full_name'),
         'email' => $this->request->getPost('email'),
@@ -531,7 +528,9 @@ public function Updateprofile()
         'alternate_number' => $this->request->getPost('alternate_number'),
         'flat' => $this->request->getPost('flat'),
         'floor' => $this->request->getPost('floor'),
-        'address' => $this->request->getPost('address')
+        'address' => $this->request->getPost('address'),
+        'location' => $this->request->getPost('location'),
+        'password' => $this->request->getPost('password')
     ];
     if ($model->update($id, $data)) {
         return $this->response->setJSON(['success' => true]);
@@ -583,14 +582,11 @@ public function addproduct()
 // }
 public function add_product()
 {
-    // Collect form data
     $productname = $this->request->getPost('productname');
     $price = $this->request->getPost('price');
     $Size = $this->request->getPost('Size');
     $unit = $this->request->getPost('unit');
     $brand = $this->request->getPost('brand');
-    
-    // Initialize the data array with form data
     $data = [
         'productname' => $productname,
         'price' => $price,
@@ -598,11 +594,8 @@ public function add_product()
         'unit' => $unit,
         'brand' => $brand,
     ];
-
-    // Check if an image file is uploaded
     $imageFile = $this->request->getFile('image');
     if ($imageFile && $imageFile->isValid() && !$imageFile->hasMoved()) {
-        // Validate the image file
         $validationRule = [
             'uploaded[image]',
             'mime_in[image,image/jpg,image/jpeg,image/png,image/gif]',
@@ -610,31 +603,21 @@ public function add_product()
         ];
         
         if ($this->validate(['image' => $validationRule])) {
-            // Move the image file to the 'public/Images' directory with a new unique name
             $newImageName = $imageFile->getRandomName();
-            $imageFile->move('public/Imges', $newImageName);
-            
-            // Add the image name to the data array
+            $imageFile->move('public/Imges', $newImageName);        
             $data['image'] = $newImageName;
         } else {
-            // Validation failed, redirect with error
             session()->setFlashdata('error', 'Image upload failed: ' . implode(', ', $this->validator->getErrors()));
             return redirect()->to('productlist');
         }
     }
-
-    // Connect to the database and get the product table
     $db = \Config\Database::connect();
     $tbl_produact = $db->table('tbl_produact');
-
-    // Check if the product name already exists
     $existingProduct = $tbl_produact->where('productname', $productname)->get()->getFirstRow();
     if ($existingProduct && ($this->request->getVar('id') == "" || $existingProduct->id != $this->request->getVar('id'))) {
         session()->setFlashdata('error', 'Product name already exists.');
         return redirect()->to('productlist');
     }
-
-    // Insert or update product
     if ($this->request->getVar('id') == "") {
         $tbl_produact->insert($data);
         session()->setFlashdata('success', 'Product added successfully.');
@@ -642,7 +625,6 @@ public function add_product()
         $tbl_produact->where('id', $this->request->getVar('id'))->update($data);
         session()->setFlashdata('success', 'Product updated successfully.');
     }
-
     return redirect()->to('productlist');
 }
 
@@ -666,7 +648,6 @@ public function deleteproduct()
     session()->setFlashdata('success', 'Data deleted successfully.');
     return redirect()->to('produactlist');
 }
-// add user
 public function adduser()
 {
     $session = \Config\Services::session();
@@ -687,9 +668,7 @@ public function userlist()
 {
     $model = new Register_model();
     $wherecond = array('role'=>'Admin','active' => 'Y');
-
     $data['menu_data'] = $model->getalldata('register', $wherecond);
-    // print_r($data['menu_data']);die;
     echo view('Admin/userlist',$data);
 }
 
@@ -703,23 +682,17 @@ public function coustmerlisting()
     $model = new Register_model();
     $wherecond = array('role' => 'customer','active' => 'Y');
     $data['coustomer'] = $model->getalldata('register', $wherecond);
-    // print_r($data);die;
     echo view('Admin/coustmerreport',$data);
 }
 
 public function addstaff()
 {
-    // print_r($_POST);die;
     $model = new Register_model();
     $db = \Config\Database::connect();
-    
-    // Get the posted access levels
     $access_level = $this->request->getPost('accesslevel');
     if (!is_array($access_level)) {
         $access_level = [];
     }
-
-    // Prepare the data for insertion
     $data = [
         'full_name' => $this->request->getPost('full_name'),
         'email' => $this->request->getPost('email'),
@@ -728,8 +701,6 @@ public function addstaff()
         'password' => $this->request->getPost('password'),
         'accesslevel' => implode(',', $access_level),
     ];
-
-
     $db = \Config\Database::Connect();
     if ($this->request->getVar('id') ==     "") {
         $add_data = $db->table('register');
@@ -741,8 +712,6 @@ public function addstaff()
         session()->setFlashdata('success', 'Data updated successfully.');
     }
     return redirect()->to('userlist');
-
-    // return redirect()->to('produactlist');
 }
 public function addmenu()
 {
@@ -760,7 +729,6 @@ public function setmenu()
        'url_location' => $this->request->getPost('url_location'),
    ];
 
-   // Insert data into the database table
    $db->table('tbl_menu')->insert($data);
    return redirect()->to('addmenu');
 }
@@ -777,8 +745,6 @@ public function orderbook() {
             $allotPartnerId = $user->allot_partner;
         }
     }
-
-//    print_r($allotPartnerId);die;
     $request = \Config\Services::request();
     $product = $request->getPost('productDropdown');
     $quantity = $request->getPost('quantityInput');
@@ -840,9 +806,7 @@ public function paymentsucess()
 public function logout()
 {
     $session = session();
-    // session_destroy();
     $session->destroy();
-    // print_r($_SESSION);die;
     return redirect()->to('/');
 }
 public function allotpartners()
@@ -862,16 +826,14 @@ public function allotpartners()
 }
 public function allotpartnerstocustomer()
 {
-    // print_r($_POST);die;
     $partnerId = $this->request->getPost('allot_partner');
     $Id = $this->request->getPost('Customer_id');
     $model = new Register_model();
-    $currentDate = date('Y-m-d'); // Current date in 'YYYY-MM-DD' format
+    $currentDate = date('Y-m-d'); 
     $wherecond = ['delivery_date >=' => $currentDate,'coustomerid'=>$Id
     ];
 
     $orders = $model->getalldata('tbl_order', $wherecond);
-// print_r($orders);die;
     foreach ($orders as $order) {
         $updateData = ['allot_partner' => $partnerId];
         $updateCondition = ['id' => $order->id]; 
@@ -887,7 +849,6 @@ public function allotpartnerstocustomer()
 }
 public function updatepaymentstatus()
 {
-    // print_r($_POST);die;
     $payment_status = $this->request->getPost('payment_status');
     $orderId = $this->request->getPost('order_id');
     
@@ -914,7 +875,6 @@ public function Staffdelivery()
     $query = $builder->get();
     $data['userdata'] = $query->getResult();
 
-    // print_r($data['userdata']);die;
     echo view('Admin/Staffdelivery',$data);
 }
 public function Orderlist()
@@ -952,7 +912,6 @@ public function Orderlist()
 
         $data['order'][] = $order;
     }
-  //  echo '<pre>'; print_r($data['order']); die;
     echo view('Admin/orderlist', $data);
 }
 public function deliveredorder()
@@ -991,7 +950,6 @@ public function deliveredorder()
 
         $data['order'][] = $order;
     }
-    // print_r($data);die;
     echo view('Admin/deliveredorder',$data);
 }
  public function yourorder()
@@ -1019,12 +977,10 @@ public function deliveredorder()
     } else {
         $data['message'] = 'No orders found.';
     }
-// print_r( $data['order']);die;
     echo view('Admin/yourorder', $data);
 }
  public function updateorderstatus()
  {
-    // print_r($_POST);die;
     $order_status = $this->request->getPost('status');
     $orderId = $this->request->getPost('order_id'); 
     $deliverdby =$this->request->getPost('allot_partner'); 
@@ -1039,7 +995,6 @@ public function deliveredorder()
  }
  public function deliverypaymentcollect()
  {
-    //  print_r($_POST);die;
      $order_status = $this->request->getPost('deliveypartnerypaymet');
      $orderId = $this->request->getPost('order_id'); 
      $deliverdby =$this->request->getPost('allot_partner'); 
@@ -1071,16 +1026,13 @@ public function deliveredorder()
          if ($db->transStatus() === FALSE) {
              $db->transRollback();
              return redirect()->to('userlist');
-            //  return $this->response->setJSON(['status' => 'error', 'message' => 'Update failed.']);
          } else {
              $db->transCommit();
-            //  return $this->response->setJSON(['status' => 'success', 'message' => 'Record updated successfully.']);
             return redirect()->to('userlist');
         }
      } catch (\Exception $e) {
          $db->transRollback();
          return redirect()->to('userlist');
-        //  return $this->response->setJSON(['status' => 'error', 'message' => 'An error occurred: ' . $e->getMessage()]);
      }
  }
  public function productpage()

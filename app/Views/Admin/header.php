@@ -325,7 +325,7 @@ $page = $uri->getSegment(count($pages));
                                                                 echo "style='display:block'";
                                                             } else {
                                                                 echo "style='display:none'";
-                                                            } ?>>Customer list</a></li>
+                                                            } ?>>New Customer</a></li>
                                 <li><a class="nav-link" href="<?=base_url(); ?>allotdelivery" <?php if (in_array('allotdelivery', $access_levels)) {
                                                                 echo "style='display:block'";
                                                             } else {

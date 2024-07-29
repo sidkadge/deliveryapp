@@ -14,7 +14,7 @@
                                 <?php if (empty($customer)): ?>
                                     <p>No orders booked.</p>
                                 <?php else: ?>
-                                    <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                                    <table class="table table-striped table-hover" style="width:100%;">
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
