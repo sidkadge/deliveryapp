@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Register_model extends Model
 {
     protected $table = 'register';
-    protected $allowedFields = ['id', 'full_name','role', 'email', 'mobile_no','alternate_name','alternate_number','flat','floor','address','password','agree','active','accesslevel',];
+    protected $allowedFields = ['id', 'full_name','role', 'email', 'mobile_no','alternate_name','alternate_number','flat','floor','address','location','password','agree','active','accesslevel',];
 
     public function getsinglerow($table, $wherecond)
     {

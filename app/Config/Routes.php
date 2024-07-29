@@ -8,6 +8,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->post('register','Home::register');
 $routes->get('login', 'Home::login');
+$routes->get('contactus', 'Home::contactus');
+
 $routes->get('registraion', 'Home::getregister');
 $routes->post('dologin','Home::dologin');
 $routes->get('coustmordashboard', 'Home::coustmordashboard');
@@ -16,6 +18,8 @@ $routes->post('Updateprofile','Home::Updateprofile');
 $routes->get('order', 'Home::order');
 $routes->get('add_to_card/(:any)', 'Home::add_to_card/$1');
 $routes->get('add_to_cardfors/(:any)', 'Home::add_to_cardfors/$1');
+$routes->post('getSocietiesByZone','Home::getSocietiesByZone');
+$routes->post('getBuildingsBySociety','Home::getBuildingsBySociety');
 
 
 $routes->get('AdminDashboard', 'Home::AdminDashboard');
@@ -33,6 +37,7 @@ $routes->get('Receivedorder', 'Home::Receivedorder');
 $routes->get('orderpayment', 'Home::orderpayment');
 $routes->get('allotdelivery', 'Home::allotdelivery');
 $routes->post('allotpartnerstocustomer', 'Home::allotpartnerstocustomer');
+$routes->get('home', 'Home::home');
 
 $routes->get('produactlist', 'Home::produact_list');
 $routes->post('updatepaymentstatus', 'Home::updatepaymentstatus');

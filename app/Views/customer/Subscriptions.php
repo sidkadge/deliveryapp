@@ -230,10 +230,10 @@
 <?php include __DIR__.'/../customer/footer.php'; ?>
 
 <style>
-    .row label{
-        color: black;
-        font-size: 15px;
-        padding-left: 4px;
+    .input label{
+        color: red;
+        /* font-size: 15px;
+        padding-left: 4px; */
     }
     .row input{
         background: linear-gradient(to right,#dfe9f1,white,white);

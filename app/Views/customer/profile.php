@@ -29,9 +29,13 @@
                                             <label for="email">Email</label>
                                             <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($customerData->email) ?>" readonly>
                                         </div>
-                                        <div class="col-md-6 mb-3">
+                                        <div class="col-md-3 mb-3">
                                             <label for="mobile_no">Mobile No</label>
                                             <input type="text" class="form-control" id="mobile_no" name="mobile_no" value="<?= htmlspecialchars($customerData->mobile_no) ?>" readonly>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="mobile_no">Password</label>
+                                            <input type="text" class="form-control" id="password" name="password" value="<?= htmlspecialchars($customerData->password) ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -57,6 +61,13 @@
                                         <div class="col-md-12 mb-3">
                                             <label for="address">Address</label>
                                             <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($customerData->address) ?>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        
+                                        <div class="col-md-12 mb-3">
+                                            <label for="address">location (google map)</label>
+                                            <input type="text" class="form-control" id="location" name="location" value="<?= htmlspecialchars($customerData->location) ?>" readonly>
                                         </div>
                                     </div>
                                     <button type="button" id="edit-button" class="btn btn-primary" onclick="toggleEdit()">Edit</button>

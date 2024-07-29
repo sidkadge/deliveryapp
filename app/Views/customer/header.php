@@ -128,7 +128,7 @@ label.error {
             <div class="main-sidebar sidebar-style-2" style="background: linear-gradient(to left, #e2fafb, #48cef6);">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="<?php base_url() ?>order"> <img alt="image" src="<?=base_url(); ?>public/assets/img/logo.png"
+                        <a href="<?php base_url() ?>product"> <img alt="image" src="<?=base_url(); ?>public/assets/img/logo.png"
                                 class="header-logo" /> <span class="logo-name">Delivery App</span>
                         </a>
                     </div>
