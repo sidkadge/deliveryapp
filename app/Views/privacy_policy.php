@@ -1,82 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include 'header.php'; ?>
+<style>
+    /* body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+        background-color: #f8f9fa;
+    } */
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Privacy Policy</title>
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="public/assets/css/app.min.css">
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="public/assets/css/style.css">
-    <link rel="stylesheet" href="public/assets/css/components.css">
-    <!-- Custom style CSS -->
-    <link rel="stylesheet" href="public/assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='public/assets/img/favicon.ico' />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f8f9fa;
-        }
+    .terms-container {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .policy-container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    /* .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #007bff;
+        background-color: #e9ecef;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    } */
 
-        .back-button {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #007bff;
-            background-color: #e9ecef;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .back-button:hover {
+        background-color: #d6d8db;
+    }
 
-        .back-button:hover {
-            background-color: #d6d8db;
-        }
+    .layout_padding h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #dac1cd;
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+  .layout_padding  h2 {
+        color: #dac1cd;
+        margin-top: 20px;
+    }
 
-        h2 {
-            color: #333;
-            margin-top: 20px;
-        }
+    p {
+        margin: 10px 0;
+    }
 
-        p {
-            margin: 10px 0;
-        }
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
 
-        ul {
-            margin: 10px 0 10px 20px;
-        }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
 
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
 
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
 
-<body>
-    <div class="policy-container">
-        <a href="javascript:history.back()" class="back-button">Back</a>
+<div class="container">
+<div class="newsletter_section layout_padding">
         <h1>Privacy Policy</h1>
 
         <h2>1. Introduction</h2>
@@ -137,7 +120,6 @@
 
         <h2>11. Contact Us</h2>
         <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at <a href="mailto:support@akagrodairyfarm.com">support@akagrodairyfarm.com</a> or +91-8788933620.</p>
-    </div>
-</body>
-
-</html>
+</div>
+</div>
+<?php include 'footer.php'; ?>

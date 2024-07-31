@@ -1058,6 +1058,9 @@ public function orderbook() {
         return redirect()->back()->withInput()->with('errors', $validation->getErrors());
     }
 
+    // Set the timezone to IST
+    date_default_timezone_set('Asia/Kolkata');
+
     // Process delivery date and time
     $deliveryDateObj = new \DateTime($deliveryDate);
     $deliveryTimeObj = \DateTime::createFromFormat('H:i', explode('-', $deliveryTime)[0]);
@@ -1066,7 +1069,10 @@ public function orderbook() {
     $currentDateTime = new \DateTime();
     $currentTime = $currentDateTime->format('H:i');
     $currentDate = $currentDateTime->format('Y-m-d');
-
+    
+    // Debug print to check current IST time
+    // print_r($currentTime);die;
+    
     // Check if delivery date is today
     if ($deliveryDateObj->format('Y-m-d') === $currentDate) {
         if ($deliveryTime === '09:00-14:00' && $currentTime < '14:00') {
@@ -1110,6 +1116,7 @@ public function orderbook() {
     session()->setFlashdata('success', 'Order placed successfully!');
     return redirect()->to('ordehistory');
 }
+
 
 
 public function paymentsucess()
