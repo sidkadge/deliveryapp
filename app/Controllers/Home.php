@@ -17,6 +17,22 @@ class Home extends BaseController
     {
         return view('contact');
     }
+    public function terms_and_conditions()
+    {
+        return view('terms_and_conditions');
+    }
+    public function shipping_policy()
+    {
+        return view('shipping_policy');
+    }
+    public function privacy_policy()
+    {
+        return view('privacy_policy');
+    }
+    public function about_us()
+    {
+        return view('about_us');
+    }
     public function getregister()
    {
     $model = new Register_model();

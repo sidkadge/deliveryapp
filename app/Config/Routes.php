@@ -9,6 +9,10 @@ $routes->get('/', 'Home::index');
 $routes->post('register','Home::register');
 $routes->get('login', 'Home::login');
 $routes->get('contactus', 'Home::contactus');
+$routes->get('terms_and_conditions', 'Home::terms_and_conditions');
+$routes->get('shipping_policy', 'Home::shipping_policy');
+$routes->get('privacy_policy', 'Home::privacy_policy');
+$routes->get('about_us', 'Home::about_us');
 
 $routes->get('registraion', 'Home::getregister');
 $routes->post('dologin','Home::dologin');
