@@ -24,6 +24,14 @@
                <div class="call_text"><img src="public/assets1/images/call-icon.png"><span class="padding_left_15">Call Now  +01 123467890</span></div>
                <div class="call_text"><img src="public/assets1/images/mail-icon.png"><span class="padding_left_15">demo@gmail.com</span></div>
             </div>
+
+            <div class="call_main">
+               <li><a href="<?= site_url('terms_and_conditions') ?>" class="pages">Terms and Conditions</a></li>
+               <li><a href="<?= site_url('shipping_policy') ?>" class="pages">Shipping Policy</a></li>
+               <li><a href="<?= site_url('privacy_policy') ?>" class="pages">Privacy Policy</a></li>
+               <li><a href="<?= site_url('about_us') ?>" class="pages">About Us</a></li>
+            </div>
+
             <div class="social_icon">
                <ul>
                   <li><a href="#"><img src="public/assets1/images/fb-icon.png"></a></li>

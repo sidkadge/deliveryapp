@@ -44,15 +44,6 @@
                      <li class="nav-item active">
                         <a class="nav-link" href="<?php echo base_url() ?>">Home</a>
                      </li>
-                     <!-- <li class="nav-item">
-                        <a class="nav-link" href="languges.html">Languges</a>
-                     </li> -->
-                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url() ?>Services">Services</a>
-                     </li>
-                     <!-- <li class="nav-item">
-                        <a class="nav-link" href="events.html">Events</a>
-                     </li> -->
                      <li class="nav-item">
                         <a class="nav-link" href="<?php echo base_url() ?>contactus">Contact Us</a>
                      </li>
