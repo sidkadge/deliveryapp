@@ -1,93 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include 'header.php'; ?>
+<style>
+    /* body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+        background-color: #f8f9fa;
+    } */
 
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Shipping Policy</title>
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="public/assets/css/app.min.css">
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="public/assets/css/style.css">
-    <link rel="stylesheet" href="public/assets/css/components.css">
-    <!-- Custom style CSS -->
-    <link rel="stylesheet" href="public/assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='public/assets/img/favicon.ico' />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-        }
+    .terms-container {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .container {
-            margin: 30px auto;
-            max-width: 800px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    /* .back-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #007bff;
+        background-color: #e9ecef;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    } */
 
-        .back-button {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #007bff;
-            background-color: #e9ecef;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .back-button:hover {
+        background-color: #d6d8db;
+    }
 
-        .back-button:hover {
-            background-color: #d6d8db;
-        }
+    .layout_padding h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #dac1cd;
+    }
 
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #343a40;
-            text-align: center;
-        }
+  .layout_padding  h2 {
+        color: #dac1cd;
+        margin-top: 20px;
+    }
 
-        h2 {
-            font-size: 20px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: #495057;
-        }
+    p {
+        margin: 10px 0;
+    }
 
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #6c757d;
-            margin: 10px 0;
-        }
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
 
-        ul {
-            margin-left: 20px;
-        }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
 
-        ul li {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #6c757d;
-        }
 
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
 
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <a href="javascript:history.back()" class="back-button">Back</a>
+<div class="container">
+    <div class="newsletter_section layout_padding">
+    
         <h1>Shipping Policy</h1>
         <p>At Anant Krushna Dairy and Milk Products, we are committed to providing you with fresh and high-quality dairy products right to your doorstep. We understand the importance of timely delivery, especially for perishable items, and strive to ensure that your order reaches you in the best condition. Please review our shipping policies below for more information.</p>
         
@@ -122,8 +95,8 @@
         <p>For information on refunds and returns, please refer to our <a href="[link to refunds and returns policy page]">Refunds and Returns Policy</a>.</p>
         
         <h2>Contact Us</h2>
-        <p>If you have any questions or concerns about our shipping policies, please don't hesitate to contact us. You can reach our customer service team at <a href="mailto:support@akagrodairyfarm.com">support@akagrodairyfarm.com</a> or +91-8788933620.</p>
+   
     </div>
-</body>
 
-</html>
+</div>
+<?php include 'footer.php'; ?>
