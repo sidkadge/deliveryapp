@@ -18,17 +18,28 @@
                                                 min="<?php echo date('Y-m-d'); ?>">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="endDate">End Date</label>
                                             <input type="date" class="form-control" id="endDate" name="endDate">
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <!-- <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="deliveryTime">Delivery Time</label>
                                             <input type="time" class="form-control" id="deliveryTime"
                                                 name="deliveryTime">
+                                        </div>
+                                    </div> -->
+                                    <div class="col-lg-5">
+                                        <div class="form-group">
+                                            <label for="deliveryTime">Delivery Time</label>
+                                            <select class="form-control" id="deliveryTime" name="deliveryTime">
+                                                <option value="">Select Time</option>
+                                                <option value="09:00-14:00">Morning (9 AM - 2 PM)</option>
+                                                <option value="16:00-18:00">Evening (4 PM - 6 PM)</option>
+                                            </select>
+                                            <!-- <label for="paymentMode"><b>(If You Order after 2pm: Delivered next morning.)</b></label> -->
                                         </div>
                                     </div>
                                 </div>
@@ -38,42 +49,15 @@
                                     <div class="col-lg-12">
                                         <label>Select Days:</label>
                                         <div id="checkboxContainer" class="form-check-inline">
-                                            <div class="form-check">
-                                                <input class="form-check-input day-checkbox" type="checkbox"
-                                                    value="Monday" id="mondayCheckbox">
-                                                <label class="form-check-label" for="mondayCheckbox">Monday</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input day-checkbox" type="checkbox"
-                                                    value="Tuesday" id="tuesdayCheckbox">
-                                                <label class="form-check-label" for="tuesdayCheckbox">Tuesday</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input day-checkbox" type="checkbox"
-                                                    value="Wednesday" id="wednesdayCheckbox">
-                                                <label class="form-check-label"
-                                                    for="wednesdayCheckbox">Wednesday</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input day-checkbox" type="checkbox"
-                                                    value="Thursday" id="thursdayCheckbox">
-                                                <label class="form-check-label" for="thursdayCheckbox">Thursday</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input day-checkbox" type="checkbox"
-                                                    value="Friday" id="fridayCheckbox">
-                                                <label class="form-check-label" for="fridayCheckbox">Friday</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input day-checkbox" type="checkbox"
-                                                    value="Saturday" id="saturdayCheckbox">
-                                                <label class="form-check-label" for="saturdayCheckbox">Saturday</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input day-checkbox" type="checkbox"
-                                                    value="Sunday" id="sundayCheckbox">
-                                                <label class="form-check-label" for="sundayCheckbox">Sunday</label>
-                                            </div>
+                                            <?php
+                                            $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                                            foreach ($days as $day) {
+                                                echo "<div class='form-check'>
+                                                        <input class='form-check-input day-checkbox' type='checkbox' value='$day' id='{$day}Checkbox'>
+                                                        <label class='form-check-label' for='{$day}Checkbox'>$day</label>
+                                                      </div>";
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -85,28 +69,16 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="productDropdown">Product</label>
-                                            <!-- <select class="form-control" id="productDropdown" name="productDropdown">
+                                            <select class="form-control" id="productDropdown" name="productDropdown">
                                                 <option value="" disabled selected>Select a product</option>
                                                 <?php foreach ($product as $item): ?>
                                                 <option value="<?php echo $item->id ?>"
                                                     data-price="<?php echo $item->price ?>"
                                                     data-unit="<?php echo $item->unit ?>"
-                                                    data-size="<?php echo $item->Size ?>">
+                                                    data-size="<?php echo $item->Size ?>"
+                                                    <?php if(!empty($sproduct)){ echo ($item->id == $sproduct->id) ? 'selected' : '';} ?>>
                                                     <?php echo $item->productname ?>
                                                 </option>
-                                                <?php endforeach; ?>
-                                            </select> -->
-
-                                            <select class="form-control" id="productDropdown" name="productDropdown" >
-                                                <option value="" disabled selected>Select a product</option>
-                                                <?php foreach ($product as $item): ?>
-                                                    <option value="<?php echo $item->id ?>"
-                                                        data-price="<?php echo $item->price ?>"
-                                                        data-unit="<?php echo $item->unit ?>"
-                                                        data-size="<?php echo $item->Size ?>"
-                                                        <?php if(!empty($sproduct)){ echo ($item->id == $sproduct->id) ? 'selected' : '';} ?>>
-                                                        <?php echo $item->productname ?>
-                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -137,7 +109,6 @@
                                     </div>
                                     <!-- Price Calculation -->
                                     <div class="col-lg-2">
-
                                         <div class="form-group">
                                             <label for="PricePerDay">Price Per Day</label>
                                             <input type="text" class="form-control" id="PricePerDay" name="PricePerDay"
@@ -165,49 +136,12 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="paymentMode"
                                                     id="upiRadio" value="upi">
-                                                <label class="form-check-label" for="upiRadio">
-                                                    UPI
-                                                </label>
+                                                <label class="form-check-label" for="upiRadio">UPI</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="paymentMode"
                                                     id="cashRadio" value="cash">
-                                                <label class="form-check-label" for="cashRadio">
-                                                    Cash On Delivery
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group" style="width: 116px; height: 112px;"
-                                            id="qrCodeContainer">
-                                            <img alt="QR Code" src="<?=base_url(); ?>public/assets/img/users/QRcodeMrunalMam.jpg"
-                                                class="img-fluid mt-2" style="display: none;">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group" id="upiTransaction" style="display: none;">
-                                            <label for="transactionIdInput">Transaction ID</label>
-                                            <input type="text" class="form-control" id="transactionIdInput"
-                                                placeholder="Transaction ID" name="transactionIdInput">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group" id="screenshotAttachment" style="display: none;">
-                                            <label for="screenshotInput">Upload Screenshot</label>
-                                            <input type="file" class="form-control-file" id="screenshotInput"
-                                                name="screenshotInput" style="border-radius: 5px;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" id="upiDetailsRow" style="display: none;">
-                                    <div class="col-lg-4">
-                                        <div class="input-group mt-3">
-                                            <input type="text" class="form-control" id="upiIdInput"
-                                                value="upi_id@example.com" readonly>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary btn-sm" type="button"
-                                                    id="copyButton" style="font-weight: bold; color: black; height: 2.6rem; border-color: #c5dbd5;">Copy</button>
+                                                <label class="form-check-label" for="cashRadio">Cash On Delivery</label>
                                             </div>
                                         </div>
                                     </div>
@@ -230,39 +164,31 @@
 <?php include __DIR__.'/../customer/footer.php'; ?>
 
 <style>
-    .input label{
-        color: red;
-        /* font-size: 15px;
-        padding-left: 4px; */
-    }
-    .row input{
-        background: linear-gradient(to right,#dfe9f1,white,white);
-    }
-    .row select{
-        background: linear-gradient(to right,#dfe9f1,white,white);
-    }
-    .form-check-input[type="radio"]{
-        width: 20px;
-        height: 20px;
-    }
-    .form-group input[type="file"]::-webkit-file-upload-button {
-        background-color: gray;
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        cursor: pointer;
-        height: 2.6rem;
-    }
-    .form-group input[type="file"]::-webkit-file-upload-button:hover {
-        background-color: blue;
-    }
-    .btn-primary {
-        width: 150px;
-        height: 40px;
-        font-size: 20px;
-    }
+.input label {
+    color: red;
+}
+
+.row input {
+    background: linear-gradient(to right, #dfe9f1, white, white);
+}
+
+.row select {
+    background: linear-gradient(to right, #dfe9f1, white, white);
+}
+
+.form-check-input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-primary {
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+}
 </style>
 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var startDateInput = document.getElementById('startDate');
@@ -276,21 +202,128 @@ document.addEventListener('DOMContentLoaded', function() {
     var priceOutput = document.getElementById('priceOutput');
     var pricePerDay = document.getElementById('PricePerDay');
     var selectedDatesInput = document.getElementById('selectedDates');
-
-    var qrCodeContainer = document.getElementById('qrCodeContainer');
-    var upiTransaction = document.getElementById('upiTransaction');
-    var screenshotAttachment = document.getElementById('screenshotAttachment');
-    var upiDetailsRow = document.getElementById('upiDetailsRow');
     var upiRadio = document.getElementById('upiRadio');
     var cashRadio = document.getElementById('cashRadio');
+    var orderForm = document.getElementById('order_form');
 
-    // Function to get dates between startDate and endDate for selected days
+    // Initialize jQuery Validate
+    $(orderForm).validate({
+        rules: {
+            startDate: {
+                required: true,
+                dateISO: true
+            },
+            endDate: {
+                required: true,
+                dateISO: true,
+                greaterThan: "#startDate"
+            },
+            productDropdown: {
+                required: true
+            },
+            quantityInput: {
+                required: true,
+                digits: true,
+                min: 1
+            },
+            paymentMode: {
+                required: true
+            }
+        },
+        messages: {
+            startDate: {
+                required: "Please select a start date.",
+                dateISO: "Please enter a valid date."
+            },
+            endDate: {
+                required: "Please select an end date.",
+                dateISO: "Please enter a valid date.",
+                greaterThan: "End date must be greater than start date."
+            },
+            productDropdown: {
+                required: "Please select a product."
+            },
+            quantityInput: {
+                required: "Please enter a quantity.",
+                digits: "Please enter a valid number.",
+                min: "Quantity must be at least 1."
+            },
+            paymentMode: {
+                required: "Please select a payment mode."
+            }
+        },
+        errorPlacement: function(error, element) {
+            if (element.is(":radio") || element.is(":checkbox")) {
+                error.appendTo(element.closest('.form-group'));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        submitHandler: function(form) {
+            if ($('#upiRadio').is(':checked')) {
+                var options = {
+                    "key": "rzp_test_QdPDZO6x3F9kBz", // Replace with your Razorpay key
+                    "amount": parseFloat(priceOutput.value) * 100, // Amount is in paise
+                    "currency": "INR",
+                    "name": "Your Company Name",
+                    "description": "Purchase Description",
+                    "handler": function(response) {
+                        var paymentId = response.razorpay_payment_id;
+                        var paymentMode = document.querySelector(
+                            'input[name="paymentMode"]:checked').value;
+                        var formData = new FormData(orderForm);
+                        formData.append('paymentId', paymentId);
+                        formData.append('paymentMode', paymentMode);
+                        fetch('Subscriptionsbook', {
+                                method: 'POST',
+                                body: formData
+                            }).then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Payment successful and order placed!');
+                                    window.location.href =
+                                    '/DeliveryApp/ordehistory'; // Ensure correct path
+                                } else {
+                                    alert('Payment successful but order placement failed!');
+                                }
+                            }).catch(error => {
+                                console.error('Error:', error);
+                            });
+                    },
+                    "prefill": {
+                        "name": "Your Name",
+                        "email": "your.email@example.com",
+                        "contact": "9999999999"
+                    },
+                    "notes": {
+                        "address": "Your Address"
+                    },
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            } else {
+                form.submit();
+            }
+        }
+    });
+
+    // Custom validation method to check if end date is greater than start date
+    $.validator.addMethod("greaterThan", function(value, element, param) {
+        var startDate = $(param).val();
+        return this.optional(element) || new Date(value) > new Date(startDate);
+    }, "End date must be greater than start date.");
+
+    // Function to get selected dates
     function getDatesForSelectedDays(startDate, endDate, selectedDays) {
         var dates = [];
         var currentDate = new Date(startDate);
-
         while (currentDate <= new Date(endDate)) {
-            var dayName = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+            var dayName = currentDate.toLocaleDateString('en-US', {
+                weekday: 'long'
+            });
             if (selectedDays.includes(dayName)) {
                 dates.push(currentDate.toISOString().split('T')[0]);
             }
@@ -303,17 +336,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateTotalPrice() {
         var selectedDays = Array.from(document.querySelectorAll('.day-checkbox:checked'))
             .map(checkbox => checkbox.value);
-
         var dates = getDatesForSelectedDays(startDateInput.value, endDateInput.value, selectedDays);
         selectedDatesInput.value = dates.join(',');
-
         var unitPrice = parseFloat(pricePerUnit.value) || 0;
         var quantity = parseInt(quantityInput.value) || 0;
         priceOutput.value = (unitPrice * quantity * dates.length).toFixed(2);
-
-        // Calculate price per day
         var totalPrice = parseFloat(priceOutput.value) || 0;
-        var totalDays = dates.length || 1; // Avoid division by zero
+        var totalDays = dates.length || 1;
         pricePerDay.value = (totalPrice / totalDays).toFixed(2);
     }
 
@@ -322,7 +351,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (startDateInput.value && endDateInput.value) {
             var startDate = new Date(startDateInput.value);
             var endDate = new Date(endDateInput.value);
-
             if (startDate <= endDate) {
                 dayCheckboxes.style.display = 'block';
             } else {
@@ -330,27 +358,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-
-    // Function to toggle UPI payment details visibility
-    function toggleUPIPaymentDetails(show) {
-        qrCodeContainer.querySelector('img').style.display = show ? 'block' : 'none';
-        upiTransaction.style.display = show ? 'block' : 'none';
-        screenshotAttachment.style.display = show ? 'block' : 'none';
-        upiDetailsRow.style.display = show ? 'block' : 'none';
-    }
-
-    // Event listeners for payment mode radio buttons
-    upiRadio.addEventListener('change', function() {
-        if (upiRadio.checked) {
-            toggleUPIPaymentDetails(true);
-        }
-    });
-
-    cashRadio.addEventListener('change', function() {
-        if (cashRadio.checked) {
-            toggleUPIPaymentDetails(false);
-        }
-    });
 
     // Event listeners for other elements
     startDateInput.addEventListener('change', function() {
@@ -371,18 +378,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     productDropdown.addEventListener('change', function() {
         var selectedOption = productDropdown.options[productDropdown.selectedIndex];
-        pricePerUnit.value = selectedOption.dataset.price;
-        unitOutput.value = selectedOption.dataset.size + ' ' + selectedOption.dataset.unit;
-        updateTotalPrice();
-    });
-
-    // Handle form submission
-    document.getElementById('order_form').addEventListener('submit', function(event) {
-        var selectedDays = Array.from(document.querySelectorAll('.day-checkbox:checked'))
-            .map(checkbox => checkbox.value);
-
-        var dates = getDatesForSelectedDays(startDateInput.value, endDateInput.value, selectedDays);
-        selectedDatesInput.value = dates.join(',');
+        if (selectedOption) {
+            pricePerUnit.value = selectedOption.dataset.price;
+            unitOutput.value = selectedOption.dataset.size + ' ' + selectedOption.dataset.unit;
+            updateTotalPrice();
+        }
     });
 
     // Initial function call to handle price and unit on page load
@@ -395,97 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    initializeForm(); // Call on page load
+    initializeForm();
 });
-</script>
 
-<script>
-$(document).ready(function() {
-    $('#order_form').validate({
-        rules: {
-            startDate: {
-                required: true,
-            },
-            endDate: {
-                required: true,
-                greaterThanStartDate: "#startDate"
-            },
-            "day-checkbox[]": {
-                required: true,
-                minlength: 1
-            },
-            productDropdown: {
-                required: true,
-            },
-            quantityInput: {
-                required: true,
-                min: 1,
-            },
-            deliveryTime: {
-                required: true,
-            },
-            paymentMode: {
-                required: true,
-            },
-            transactionIdInput: {
-                required: function(element) {
-                    return $('#upiRadio').is(':checked') && $('#screenshotInput').val() === '';
-                }
-            },
-            screenshotInput: {
-                required: function(element) {
-                    return $('#upiRadio').is(':checked') && $('#transactionIdInput').val() === '';
-                }
-            }
-        },
-        messages: {
-            startDate: {
-                required: "Please select a start date.",
-            },
-            endDate: {
-                required: "Please select an end date.",
-                greaterThanStartDate: "End date must be greater than start date."
-            },
-            "day-checkbox[]": {
-                required: "Please select at least one day.",
-            },
-            productDropdown: {
-                required: 'Please select a product.',
-            },
-            quantityInput: {
-                required: 'Please enter the quantity.',
-                min: 'Quantity must be at least 1.'
-            },
-            deliveryTime: {
-                required: 'Please enter the delivery time.',
-            },
-            paymentMode: {
-                required: 'Please select a payment mode.',
-            },
-            transactionIdInput: {
-                required: 'Please enter the transaction ID or upload a screenshot.',
-            },
-            screenshotInput: {
-                required: 'Please upload a screenshot or enter the transaction ID.',
-            }
-        },
-        errorPlacement: function(error, element) {
-            if (element.attr("name") == "screenshotInput") {
-                error.appendTo("#screenshotAttachment");
-            } else if (element.attr("name") == "transactionIdInput") {
-                error.appendTo("#upiTransaction");
-            } else if (element.attr("name") == "startDate" || element.attr("name") == "endDate") {
-                error.appendTo(element.parent().parent());
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    });
-
-    // Custom validation method to check if end date is greater than start date
-    $.validator.addMethod("greaterThanStartDate", function(value, element, params) {
-        var startDate = $(params).val();
-        return Date.parse(value) > Date.parse(startDate);
-    }, "End date must be greater than start date.");
-});
 </script>

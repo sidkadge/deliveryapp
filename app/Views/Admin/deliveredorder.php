@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <?php if (empty($order)): ?>
-                                    <p>No orders booked.</p>
+                                    <p>No orders Delivered.</p>
                                 <?php else: ?>
                                     <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
                                         <thead>

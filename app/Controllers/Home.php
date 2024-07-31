@@ -193,30 +193,100 @@ public function coustmordashboard()
     echo view('customer/coustmordashboard');
 
 }
+// public function Subscriptionsbook()
+// {
+//     print_r($_POST);die;
+//     $session = \Config\Services::session();
+//     $id = $session->get('id');
+//     $request = \Config\Services::request();
+//     $model = new Register_model();
+//     $wherecond = array('id' =>$id,);
+//     $partnerid = $model->getalldata('register', $wherecond);
+//     $allotPartnerId = null;
+//     if (!empty($partnerid) && is_array( $partnerid)) {
+//         $user =  $partnerid[0];
+//         if (isset($user->allot_partner)) {
+//             $allotPartnerId = $user->allot_partner;
+//         }
+//     }
+//     $product = $request->getPost('productDropdown');
+//     $pricePerUnit =$request->getPost('pricePerUnit');
+//     $quantity = $request->getPost('quantityInput');
+//     $deliveryTime = $request->getPost('deliveryTime');
+//     $paymentMode = $request->getPost('paymentMode');
+//     $price = $request->getPost('price');
+//     $unit = $request->getPost('unit');
+//     $transactionIdInput = $request->getPost('transactionIdInput');
+//     $selectedDates = explode(',', $request->getPost('selectedDates'));
+//     $validation = \Config\Services::validation();
+//     $validation->setRules([
+//         'productDropdown' => 'required',
+//         'quantityInput' => 'required|integer|greater_than[0]',
+//         'deliveryTime' => 'required',
+//         'paymentMode' => 'required',
+//         'transactionIdInput' => 'permit_empty',
+//         'screenshotInput' => 'permit_empty|uploaded[screenshotInput]|max_size[screenshotInput,1024]|ext_in[screenshotInput,jpg,jpeg,png,pdf]'
+//     ]);
+//     foreach ($selectedDates as $date) {
+//         $data = [
+//             'product' => $product,
+//             'quantity' => $quantity,
+//             'delivery_date' => $date,
+//             'delivery_time' => $deliveryTime,
+//             'payment_mode' => $paymentMode,
+//             'coustomerid' => $id,
+//             'allot_partner'=>$allotPartnerId,
+//             'unit' => $unit,
+//             'price' => $pricePerUnit * $quantity,
+//             'transaction_id' => $transactionIdInput,
+//         ];
+//         $file = $request->getFile('screenshotInput');
+//         if ($file->isValid() && !$file->hasMoved()) {
+//             $newName = $file->getRandomName();
+//             $file->move(ROOTPATH . 'public/uploads/paymentscreenshot', $newName);
+//             $data['payment_screenshot'] = $newName;
+//         }
+//         if (!empty($transactionIdInput) || !empty($data['payment_screenshot'])) {
+//             $data['payment_status'] = 'paid';
+//             $data['deliveypartnerypaymet'] = 'R'; 
+//         } else {
+//             $data['payment_status'] = 'unpaid';
+//         }
+
+//         $db = \Config\Database::connect();
+//         $db->table('tbl_order')->insert($data);
+//     }
+
+//     session()->setFlashdata('success', 'Order placed successfully!');
+//     return redirect()->to('ordehistory');
+// }
 public function Subscriptionsbook()
 {
     $session = \Config\Services::session();
     $id = $session->get('id');
     $request = \Config\Services::request();
     $model = new Register_model();
-    $wherecond = array('id' =>$id,);
+    $wherecond = ['id' => $id];
     $partnerid = $model->getalldata('register', $wherecond);
     $allotPartnerId = null;
-    if (!empty($partnerid) && is_array( $partnerid)) {
-        $user =  $partnerid[0];
+
+    if (!empty($partnerid) && is_array($partnerid)) {
+        $user = $partnerid[0];
         if (isset($user->allot_partner)) {
             $allotPartnerId = $user->allot_partner;
         }
     }
+
     $product = $request->getPost('productDropdown');
-    $pricePerUnit =$request->getPost('pricePerUnit');
+    $pricePerUnit = $request->getPost('pricePerUnit');
     $quantity = $request->getPost('quantityInput');
     $deliveryTime = $request->getPost('deliveryTime');
     $paymentMode = $request->getPost('paymentMode');
     $price = $request->getPost('price');
     $unit = $request->getPost('unit');
-    $transactionIdInput = $request->getPost('transactionIdInput');
+    $transactionIdInput = $request->getPost('paymentId'); // Changed to match Razorpay response
     $selectedDates = explode(',', $request->getPost('selectedDates'));
+
     $validation = \Config\Services::validation();
     $validation->setRules([
         'productDropdown' => 'required',
@@ -224,8 +294,18 @@ public function Subscriptionsbook()
         'deliveryTime' => 'required',
         'paymentMode' => 'required',
         'transactionIdInput' => 'permit_empty',
-        'screenshotInput' => 'permit_empty|uploaded[screenshotInput]|max_size[screenshotInput,1024]|ext_in[screenshotInput,jpg,jpeg,png,pdf]'
     ]);
+
+    if (!$validation->withRequest($request)->run()) {
+        return $this->response->setJSON([
+            'success' => false,
+            'errors' => $validation->getErrors()
+        ]);
+    }
+
+    $db = \Config\Database::connect();
+    $success = true;
+
     foreach ($selectedDates as $date) {
         $data = [
             'product' => $product,
@@ -234,30 +314,35 @@ public function Subscriptionsbook()
             'delivery_time' => $deliveryTime,
             'payment_mode' => $paymentMode,
             'coustomerid' => $id,
-            'allot_partner'=>$allotPartnerId,
+            'allot_partner' => $allotPartnerId,
             'unit' => $unit,
             'price' => $pricePerUnit * $quantity,
             'transaction_id' => $transactionIdInput,
         ];
-        $file = $request->getFile('screenshotInput');
-        if ($file->isValid() && !$file->hasMoved()) {
-            $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads/paymentscreenshot', $newName);
-            $data['payment_screenshot'] = $newName;
-        }
-        if (!empty($transactionIdInput) || !empty($data['payment_screenshot'])) {
+
+        // Determine payment status based on the presence of the transaction ID
+        if (!empty($transactionIdInput)) {
             $data['payment_status'] = 'paid';
-            $data['deliveypartnerypaymet'] = 'R'; 
+            $data['deliveypartnerypaymet'] = 'R'; // Assuming 'R' stands for Razorpay
         } else {
             $data['payment_status'] = 'unpaid';
         }
 
-        $db = \Config\Database::connect();
-        $db->table('tbl_order')->insert($data);
+        if (!$db->table('tbl_order')->insert($data)) {
+            $success = false;
+            break;
+        }
     }
 
-    session()->setFlashdata('success', 'Order placed successfully!');
-    return redirect()->to('ordehistory');
+    if ($paymentMode === 'cash') {
+        // Return a response indicating the need for redirection
+        return redirect()->to('ordehistory');
+    } else {
+        // Handle other payment modes (e.g., UPI) if needed
+        return $this->response->setJSON([
+            'success' => $success
+        ]);
+    }
 }
 
 public function Subscriptions()
@@ -323,6 +408,7 @@ public function add_to_card($id)
     );
 
     $data['sproduct'] = $model->getsinglerow('tbl_produact', $wherecond);
+    // print_r($data['sproduct']);die;
     echo view('customer/order', $data);
 }
 
@@ -717,6 +803,25 @@ public function addmenu()
 {
     echo view('Admin/addmenu');
 }
+public function addzones()
+{
+    echo view('Admin/addzone');
+}
+public function addzone()
+{
+    // print_r($_POST);die;
+    $session = \Config\Services::session();
+    if (!$session->has('id')) {
+        return redirect()->to('/');
+    }
+   $db = \Config\Database::connect();
+   $data = [
+       'zone' => $this->request->getPost('zone'),
+   ];
+
+   $db->table('zone')->insert($data);
+   return redirect()->to('addzones');
+}
 public function setmenu()
 {
     $session = \Config\Services::session();
@@ -732,19 +837,186 @@ public function setmenu()
    $db->table('tbl_menu')->insert($data);
    return redirect()->to('addmenu');
 }
+// public function orderbook() {
+//     print_r($_POST);die;
+//     $session = \Config\Services::session();
+//     $id = $session->get('id');
+//     $model = new Register_model();
+//     $wherecond = array('id' =>$id,);
+//     $partnerid = $model->getalldata('register', $wherecond);
+//     $allotPartnerId = null;
+//     if (!empty($partnerid) && is_array( $partnerid)) {
+//         $user =  $partnerid[0];
+//         if (isset($user->allot_partner)) {
+//             $allotPartnerId = $user->allot_partner;
+//         }
+//     }
+//     $request = \Config\Services::request();
+//     $product = $request->getPost('productDropdown');
+//     $quantity = $request->getPost('quantityInput');
+//     $deliveryDate = $request->getPost('deliveryDate');
+//     $deliveryTime = $request->getPost('deliveryTime');
+//     $paymentMode = $request->getPost('paymentMode');
+//     $price = $request->getPost('price');
+//     $unit = $request->getPost('unit');
+//     $transactionIdInput = $request->getPost('transactionIdInput');
+//     $validation = \Config\Services::validation();
+//     $validation->setRules([
+//         'productDropdown' => 'required',
+//         'quantityInput' => 'required|integer|greater_than[0]',
+//         'deliveryDate' => 'required|valid_date',
+//         'deliveryTime' => 'required',
+//         'paymentMode' => 'required',
+//         'transactionIdInput' => 'permit_empty',
+//         'screenshotInput' => 'permit_empty|uploaded[screenshotInput]|max_size[screenshotInput,1024]|ext_in[screenshotInput,jpg,jpeg,png,pdf]' // updated file types to include images
+//     ]);
+//     if (!$validation->withRequest($request)->run()) {
+//         return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+//     }
+//     $data = [
+//         'product' => $product,
+//         'quantity' => $quantity,
+//         'delivery_date' => $deliveryDate,
+//         'delivery_time' => $deliveryTime,
+//         'payment_mode' => $paymentMode,
+//         'coustomerid'=>$id,
+//         'allot_partner'=>$allotPartnerId,
+//         'unit' => $unit,
+//         'price' => $price,
+//         'transaction_id' => $transactionIdInput,
+//     ];
+//     $file = $request->getFile('screenshotInput');
+//     if ($file->isValid() && !$file->hasMoved()) {
+//         $newName = $file->getRandomName();
+//         $file->move(ROOTPATH . 'public/uploads/paymentscreenshot', $newName);
+//         $data['payment_screenshot'] = $newName;
+//     }
+//     if (!empty($transactionIdInput) || !empty($data['payment_screenshot'])) {
+//         $data['payment_status'] = 'paid';
+//         $data['deliveypartnerypaymet'] = 'R';
+       
+//     } else {
+//         $data['payment_status'] = 'unpaid';
+//     }
+//     $db = \Config\Database::connect();
+//     $db->table('tbl_order')->insert($data);
+
+//     session()->setFlashdata('success', 'Order placed successfully!');
+//     return redirect()->to('ordehistory');
+// }
+// public function orderbook() {
+//     print_r($_POST);die;
+
+//     $session = \Config\Services::session();
+//     $id = $session->get('id');
+//     $model = new Register_model();
+//     $wherecond = array('id' => $id);
+//     $partnerid = $model->getalldata('register', $wherecond);
+//     $allotPartnerId = null;
+
+//     if (!empty($partnerid) && is_array($partnerid)) {
+//         $user = $partnerid[0];
+//         if (isset($user->allot_partner)) {
+//             $allotPartnerId = $user->allot_partner;
+//         }
+//     }
+
+//     $request = \Config\Services::request();
+//     $product = $request->getPost('productDropdown');
+//     $quantity = $request->getPost('quantityInput');
+//     $deliveryDate = $request->getPost('deliveryDate');
+//     $deliveryTime = $request->getPost('deliveryTime');
+//     $paymentMode = $request->getPost('paymentMode');
+//     $price = $request->getPost('price');
+//     $unit = $request->getPost('unit');
+//     $transactionIdInput = $request->getPost('transactionIdInput');
+    
+//     // Validation rules
+//     $validation = \Config\Services::validation();
+//     $validation->setRules([
+//         'productDropdown' => 'required',
+//         'quantityInput' => 'required|integer|greater_than[0]',
+//         'deliveryDate' => 'required|valid_date',
+//         'deliveryTime' => 'required',
+//         'paymentMode' => 'required',
+//         'transactionIdInput' => 'permit_empty',
+//         'screenshotInput' => 'permit_empty|uploaded[screenshotInput]|max_size[screenshotInput,1024]|ext_in[screenshotInput,jpg,jpeg,png,pdf]' // updated file types to include images
+//     ]);
+
+//     if (!$validation->withRequest($request)->run()) {
+//         return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+//     }
+
+//     // Process delivery date and time
+//     $deliveryDateObj = new \DateTime($deliveryDate);
+//     $deliveryTimeObj = \DateTime::createFromFormat('H:i', explode('-', $deliveryTime)[0]);
+
+//     // Check if delivery date is today and time is after 14:00
+//     if ($deliveryDateObj->format('Y-m-d') === (new \DateTime())->format('Y-m-d')) {
+//         if ($deliveryTimeObj >= new \DateTime('14:00')) {
+//             // Change delivery date to the next day and set delivery time to 09:00-14:00
+//             $deliveryDateObj->modify('+1 day');
+//             $deliveryTime = '09:00-14:00';
+//         }
+//     }
+
+//     // Format the adjusted delivery date
+//     $deliveryDateAdjusted = $deliveryDateObj->format('Y-m-d');
+
+//     $data = [
+//         'product' => $product,
+//         'quantity' => $quantity,
+//         'delivery_date' => $deliveryDateAdjusted,
+//         'delivery_time' => $deliveryTime,
+//         'payment_mode' => $paymentMode,
+//         'coustomerid' => $id,
+//         'allot_partner' => $allotPartnerId,
+//         'unit' => $unit,
+//         'price' => $price,
+//         'transaction_id' => $transactionIdInput,
+//     ];
+
+//     // Handle file upload
+//     $file = $request->getFile('screenshotInput');
+//     if ($file->isValid() && !$file->hasMoved()) {
+//         $newName = $file->getRandomName();
+//         $file->move(ROOTPATH . 'public/uploads/paymentscreenshot', $newName);
+//         $data['payment_screenshot'] = $newName;
+//     }
+
+//     // Determine payment status
+//     if (!empty($transactionIdInput) || !empty($data['payment_screenshot'])) {
+//         $data['payment_status'] = 'paid';
+//         $data['deliveypartnerypaymet'] = 'R';
+//     } else {
+//         $data['payment_status'] = 'unpaid';
+//     }
+
+//     // Insert into the database
+//     $db = \Config\Database::connect();
+//     $db->table('tbl_order')->insert($data);
+
+//     session()->setFlashdata('success', 'Order placed successfully!');
+//     return redirect()->to('ordehistory');
+// }
 public function orderbook() {
+    // Debug print to check received POST data
+    // print_r($_POST);die;
+
     $session = \Config\Services::session();
     $id = $session->get('id');
     $model = new Register_model();
-    $wherecond = array('id' =>$id,);
+    $wherecond = array('id' => $id);
     $partnerid = $model->getalldata('register', $wherecond);
     $allotPartnerId = null;
-    if (!empty($partnerid) && is_array( $partnerid)) {
-        $user =  $partnerid[0];
+
+    if (!empty($partnerid) && is_array($partnerid)) {
+        $user = $partnerid[0];
         if (isset($user->allot_partner)) {
             $allotPartnerId = $user->allot_partner;
         }
     }
+
     $request = \Config\Services::request();
     $product = $request->getPost('productDropdown');
     $quantity = $request->getPost('quantityInput');
@@ -753,7 +1025,9 @@ public function orderbook() {
     $paymentMode = $request->getPost('paymentMode');
     $price = $request->getPost('price');
     $unit = $request->getPost('unit');
-    $transactionIdInput = $request->getPost('transactionIdInput');
+    $transactionIdInput = $request->getPost('transaction_id');
+    
+    // Validation rules
     $validation = \Config\Services::validation();
     $validation->setRules([
         'productDropdown' => 'required',
@@ -761,43 +1035,66 @@ public function orderbook() {
         'deliveryDate' => 'required|valid_date',
         'deliveryTime' => 'required',
         'paymentMode' => 'required',
-        'transactionIdInput' => 'permit_empty',
-        'screenshotInput' => 'permit_empty|uploaded[screenshotInput]|max_size[screenshotInput,1024]|ext_in[screenshotInput,jpg,jpeg,png,pdf]' // updated file types to include images
+        'transaction_id' => 'permit_empty',
     ]);
+
     if (!$validation->withRequest($request)->run()) {
         return redirect()->back()->withInput()->with('errors', $validation->getErrors());
     }
+
+    // Process delivery date and time
+    $deliveryDateObj = new \DateTime($deliveryDate);
+    $deliveryTimeObj = \DateTime::createFromFormat('H:i', explode('-', $deliveryTime)[0]);
+
+    // Get the current time
+    $currentDateTime = new \DateTime();
+    $currentTime = $currentDateTime->format('H:i');
+    $currentDate = $currentDateTime->format('Y-m-d');
+
+    // Check if delivery date is today
+    if ($deliveryDateObj->format('Y-m-d') === $currentDate) {
+        if ($deliveryTime === '09:00-14:00' && $currentTime < '14:00') {
+            // If current time is less than 14:00 and the delivery time is 09:00-14:00, set delivery time to 16:00-18:00
+            $deliveryTime = '16:00-18:00';
+        } elseif ($currentTime >= '14:00') {
+            // If current time is 14:00 or later, set delivery date to the next day and delivery time to 09:00-14:00
+            $deliveryDateObj->modify('+1 day');
+            $deliveryTime = '09:00-14:00';
+        }
+    }
+
+    // Format the adjusted delivery date
+    $deliveryDateAdjusted = $deliveryDateObj->format('Y-m-d');
+
     $data = [
         'product' => $product,
         'quantity' => $quantity,
-        'delivery_date' => $deliveryDate,
+        'delivery_date' => $deliveryDateAdjusted,
         'delivery_time' => $deliveryTime,
         'payment_mode' => $paymentMode,
-        'coustomerid'=>$id,
-        'allot_partner'=>$allotPartnerId,
+        'coustomerid' => $id,
+        'allot_partner' => $allotPartnerId,
         'unit' => $unit,
         'price' => $price,
         'transaction_id' => $transactionIdInput,
     ];
-    $file = $request->getFile('screenshotInput');
-    if ($file->isValid() && !$file->hasMoved()) {
-        $newName = $file->getRandomName();
-        $file->move(ROOTPATH . 'public/uploads/paymentscreenshot', $newName);
-        $data['payment_screenshot'] = $newName;
-    }
-    if (!empty($transactionIdInput) || !empty($data['payment_screenshot'])) {
+
+    // Determine payment status
+    if (!empty($transactionIdInput)) {
         $data['payment_status'] = 'paid';
         $data['deliveypartnerypaymet'] = 'R';
-       
     } else {
         $data['payment_status'] = 'unpaid';
     }
+
+    // Insert into the database
     $db = \Config\Database::connect();
     $db->table('tbl_order')->insert($data);
 
     session()->setFlashdata('success', 'Order placed successfully!');
     return redirect()->to('ordehistory');
 }
+
 
 public function paymentsucess()
 {
@@ -952,33 +1249,107 @@ public function deliveredorder()
     }
     echo view('Admin/deliveredorder',$data);
 }
- public function yourorder()
+//  public function yourorder()
+// {
+//     $session = \Config\Services::session();
+//     if (!$session->has('id')) {
+//         return redirect()->to('/');
+//     }
+//     $today = date('Y-m-d');
+//     $id = $session->get('id');
+//     $model = new Register_model();
+//     $wherecond = array('order_status' => 'B', 'allot_partner' => $id ,'delivery_date' =>$today);
+//     $orders = $model->getalldata('tbl_order', $wherecond);
+//     $data['order'] = [];
+//     if (!empty($orders) && (is_array($orders) || is_object($orders))) {
+//         foreach ($orders as $order) {
+//             $product = $model->getProductById($order->product);
+//             $order->product_name = $product->productname; 
+//             $user = $model->getuserById($order->coustomerid);
+//             $order->user_name = $user->full_name; 
+//             $order->address = $user->address; 
+//             $order->location = $user->location; 
+//             $data['order'][] = $order;
+//         }
+//     } else {
+//         $data['message'] = 'No orders found.';
+//     }
+// //    echo '<pre>'; print_r($data);die;
+//     echo view('Admin/yourorder', $data);
+// }
+public function yourorder()
 {
     $session = \Config\Services::session();
     if (!$session->has('id')) {
         return redirect()->to('/');
     }
 
+    $today = date('Y-m-d');
     $id = $session->get('id');
     $model = new Register_model();
-    $wherecond = array('order_status' => 'B', 'allot_partner' => $id);
+    $wherecond = array('order_status' => 'B', 'allot_partner' => $id, 'delivery_date' => $today);
+
+    // Get filter inputs from GET request
+    $filter_zone = $this->request->getGet('zone');
+    $filter_society = $this->request->getGet('society_name');
+    $filter_building = $this->request->getGet('building_name');
+
     $orders = $model->getalldata('tbl_order', $wherecond);
     $data['order'] = [];
+    $data['zones'] = $model->getalldata('zone', []); // Fetch all zones
+    $data['societies'] = $model->getalldata('society', []); // Fetch all societies
+    $data['buildings'] = $model->getalldata('building', []); // Fetch all buildings
+
     if (!empty($orders) && (is_array($orders) || is_object($orders))) {
         foreach ($orders as $order) {
             $product = $model->getProductById($order->product);
-            $order->product_name = $product->productname; 
+            $order->product_name = $product->productname;
             $user = $model->getuserById($order->coustomerid);
-            $order->user_name = $user->full_name; 
-            $order->address = $user->address; 
-            $order->location = $user->location; 
-            $data['order'][] = $order;
+            $order->user_name = $user->full_name;
+            $order->address = $user->address;
+            $order->location = $user->location;
+
+            // Fetch Zone, Societyname, and Buildingname
+            $registerData = $model->getalldata('register', array('id' => $order->coustomerid));
+            if (!empty($registerData) && is_array($registerData)) {
+                $registerData = $registerData[0];
+
+                // Fetch Zone
+                $zone = $model->getalldata('zone', array('id' => $registerData->Zone));
+                $order->zone = !empty($zone) ? $zone[0]->zone : '';
+
+                // Fetch Societyname
+                $society = $model->getalldata('society', array('id' => $registerData->Societyname));
+                $order->Societyname = !empty($society) ? $society[0]->Societyname : '';
+
+                // Fetch Buildingname
+                $building = $model->getalldata('building', array('id' => $registerData->Buildingname));
+                $order->Buildingname = !empty($building) ? $building[0]->Buildingname : '';
+            }
+
+            // Apply filters
+            $match = true;
+            if ($filter_zone && $filter_zone != $order->zone) {
+                $match = false;
+            }
+            if ($filter_society && $filter_society != $order->Societyname) {
+                $match = false;
+            }
+            if ($filter_building && $filter_building != $order->Buildingname) {
+                $match = false;
+            }
+
+            if ($match) {
+                $data['order'][] = $order;
+            }
         }
     } else {
         $data['message'] = 'No orders found.';
     }
+
     echo view('Admin/yourorder', $data);
 }
+
  public function updateorderstatus()
  {
     $order_status = $this->request->getPost('status');

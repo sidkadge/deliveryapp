@@ -53,7 +53,7 @@
                                                     style="width: 4.4rem; margin-left: 0.8rem;"><?php echo $row->payment_status; ?></span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td><?php echo date('h:i A', strtotime($row->delivery_time)); ?></td>
+                                            <td><?php echo $row->delivery_time; ?></td>
                                             <td><?php echo $row->payment_mode; ?></td>
                                             <td>
                                                 <?php if ($row->order_status == 'D'): ?>

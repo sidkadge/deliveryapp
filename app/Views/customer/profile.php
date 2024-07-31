@@ -44,7 +44,7 @@
                                             <input type="text" class="form-control" id="alternate_name" name="alternate_name" value="<?= htmlspecialchars($customerData->alternate_name) ?>" readonly>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="alternate_number">Alternate Contact Number</label>
+                                            <label for="alternate_number">Contact Number(AL)</label>
                                             <input type="text" class="form-control" id="alternate_number" name="alternate_number" value="<?= htmlspecialchars($customerData->alternate_number) ?>" readonly>
                                         </div>
                                         <div class="col-md-2 mb-3">
