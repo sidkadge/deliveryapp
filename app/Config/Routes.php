@@ -64,6 +64,8 @@ $routes->get('addmenu', 'Home::addmenu');
 $routes->post('set_menu','Home::setmenu');
 $routes->post('orderbook','Home::orderbook');
 $routes->post('add_to_card/orderbook','Home::orderbook');
+$routes->get('addzones', 'Home::addzones');
+$routes->post('addzone','Home::addzone');
 
 $routes->get('ordehistory', 'Home::ordehistory');
 $routes->get('Subscriptions', 'Home::Subscriptions');

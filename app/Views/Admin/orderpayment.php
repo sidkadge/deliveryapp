@@ -22,7 +22,7 @@
                                             <th>Product</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                            <th>View Screenshot<br>/ transaction Id</th>
+                                            <th>transaction Id</th>
                                             <th>Delivery Date</th>
                                             <th>Payment Status</th>
                                             <th>Delivery Time</th>
