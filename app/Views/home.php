@@ -35,35 +35,35 @@
             <h1 class="language_taital_1">Elegance Meets Hydration Artistry.</h1>
             <div class="language_section_2 layout_padding">
                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-6">
                      <div class="box_main">
                         <div class="icon_1"><img src="public/assets1/images/icon-1.png"></div>
                         <h6 class="heavy_text">An Easy <br>Easy to book</h6>
                      </div>
                      <!-- <div class="readmore_bt"><a href="#">Read More</a></div> -->
                   </div>
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-6">
                      <div class="box_main">
                         <div class="icon_1"><img src="public/assets1/images/icon-2.png"></div>
                         <h6 class="heavy_text">Free <br>Delivery</h6>
                      </div>
                      <!-- <div class="readmore_bt active"><a href="#">Read More</a></div> -->
                   </div>
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-6">
                      <div class="box_main">
                         <div class="icon_1"><img src="public/assets1/images/icon-3.png"></div>
                         <h6 class="heavy_text">A Free <br>Web Application</h6>
                      </div>
                      <!-- <div class="readmore_bt"><a href="#">Read More</a></div> -->
                   </div>
-                  <div class="col-lg-3 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-6">
                      <div class="box_main">
                         <div class="icon_1"><img src="public/assets1/images/icon-4.png"></div>
                         <h6 class="heavy_text">Doorstep delivery guaranteed</h6>
                      </div>
                      <!-- <div class="readmore_bt"><a href="#">Read More</a></div> -->
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
                      <div id="sectionSeparator"><img src="public/assets1/images/border2.webp"></div>
                   </div>
                </div>
@@ -118,18 +118,18 @@
                  <div class="carousel-inner">
                      <div class="carousel-item active">
                         <div class="row">
-                         <div class="col-lg-4 col-md-6">
-                             <div>
+                         <div class="col-lg-4 col-md-4 col-sm-12">
+                             <div class="p-3">
                               <img src="public/assets1/images/water-4.jpeg" alt="">
                              </div>
                          </div>
-                         <div class="col-lg-4 col-md-6">
-                              <div>
+                         <div class="col-lg-4 col-md-4 col-sm-12">
+                              <div class="p-3">
                               <img src="public/assets1/images/water-9.jpeg" alt="">
                              </div>
                          </div>
-                         <div class="col-lg-4 col-md-6">
-                              <div>
+                         <div class="col-lg-4 col-md-4 col-sm-12">
+                              <div class="p-3">
                               <img src="public/assets1/images/water-10.jpeg" alt="">
                              </div>
                          </div>

@@ -14,20 +14,20 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="public/assets1/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css"  href="<?php  echo base_url(); ?>public/assets1/css/bootstrap.min.css">
       <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="public/assets1/css/style.css">
+      <link rel="stylesheet" type="text/css"  href="<?php  echo base_url(); ?>public/assets1/css/style.css">
       <!-- Responsive-->
-      <link rel="stylesheet" href="public/assets1/css/responsive.css">
+      <link rel="stylesheet"  href="<?php  echo base_url(); ?>public/assets1/css/responsive.css">
       <!-- fevicon -->
-      <link rel="icon" href="public/assets1/images/fevicon.png" type="image/gif" />
+      <link rel="icon"  href="<?php  echo base_url(); ?>public/assets1/images/fevicon.png" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="public/assets1/css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet"  href="<?php  echo base_url(); ?>public/assets1/css/jquery.mCustomScrollbar.min.css">
       <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/public/assets1/css/font-awesome.css">
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <!-- owl stylesheets --> 
-      <link rel="stylesheet" href="public/assets1/css/owl.carousel.min.css">
-      <link rel="stylesheet" href="public/assets1/css/owl.theme.default.min.css">
+      <link rel="stylesheet"  href="<?php  echo base_url(); ?>public/assets1/css/owl.carousel.min.css">
+      <link rel="stylesheet"  href="<?php  echo base_url(); ?>public/assets1/css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
    </head>
    <body>
@@ -45,7 +45,7 @@
                         <a class="nav-link" href="<?php echo base_url() ?>">Home</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="<?php echo base_url() ?>contactus">Contact Us</a>
+                        <a class="nav-link" href="<?php echo base_url(); ?>contactus">Contact Us</a>
                      </li>
                   </ul>
                   <form class="form-inline my-2 my-lg-0">

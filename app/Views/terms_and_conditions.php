@@ -121,7 +121,7 @@
 
         <h2>9. Privacy Policy</h2>
         <p>We value your privacy and are committed to protecting your personal information. Please refer to our <a
-                href="privacy.html">Privacy Policy</a> for detailed information on how we collect, use, and protect your
+                href="<?=base_url(); ?>privacy.html">Privacy Policy</a> for detailed information on how we collect, use, and protect your
             data.</p>
 
         <h2>10. Limitation of Liability</h2>
