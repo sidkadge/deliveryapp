@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-6">
-                                        <label for="email">Email1</label>
+                                        <label for="email">Email</label>
                                         <input id="email" type="email" class="form-control" name="email">
                                         <div class="invalid-feedback"></div>
                                     </div>

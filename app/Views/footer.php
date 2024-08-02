@@ -51,16 +51,16 @@
       </div>
       <!--copyright section end -->
       <!-- Javascript files-->
-      <script src="public/assets1/jquery.min.js"></script>
-      <script src="public/assets1/popper.min.js"></script>
-      <script src="public/assets1/bootstrap.bundle.min.js"></script>
-      <script src="public/assets1/jquery-3.0.0.min.js"></script>
-      <script src="public/assets1/plugin.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/jquery.min.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/popper.min.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/bootstrap.bundle.min.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/jquery-3.0.0.min.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/plugin.js"></script>
       <!-- sidebar -->
-      <script src="public/assets1/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="public/assets1/custom.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/custom.js"></script>
       <!-- javascript --> 
-      <script src="public/assets1/owl.carousel.js"></script>
+      <script  src="<?php  echo base_url(); ?>public/assets1/js/owl.carousel.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
    </body>
 </html>
